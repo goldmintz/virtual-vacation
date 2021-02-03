@@ -4,6 +4,7 @@ import PlaylistCard from './PlaylistCard';
 const Player = () => {
 	return (
 		<div class='player'>
+			<div>WORLD/LAND TOGGLE</div>
 			<div className='player-wrapper'>
 				<div className='player-controls'>
 					<h1>I am the track listing</h1>

@@ -13,7 +13,6 @@ body {
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	overflow: hidden;
 }
 
 .page-wrapper {
@@ -66,12 +65,22 @@ body {
 	flex-wrap: wrap;
 	background-color: white;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-end;
 }
 
 .playlist-card {
 	width: 30%;
 	margin: auto;
+	position: relative;
+}
+
+.card-title {
+	position: absolute;
+	text-align: center;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
 }
 
 .playlist-card-img {

@@ -6,6 +6,7 @@ import SlideShow from './components/SlideShow';
 import Player from './components/Player';
 
 const App = () => {
+	
 	return (
 		<div className='page-wrapper'>
 			<SlideShow />
