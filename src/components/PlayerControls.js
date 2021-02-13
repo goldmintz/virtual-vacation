@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const PlayerControls = () => {
-	const [playToggle, setPlayToggle] = useState('play');
+const PlayerControls = ({
+	isPlaying,
+	setIsPlaying,
+	advanceTrack,
+	currentTrackIndex,
+}) => {
 	return (
 		<div className='player-controls'>
-			<button className='back-btn'>
-				<i className='fas fa-backward'></i>
+			<button
+				className='back-btn'
+				disabled={currentTrackIndex === 0}
+				onClick={() => {
+					advanceTrack(false);
+				}}>
+				<i className='fas fa-backward' />
 			</button>
-			<button className='play-btn'>
-				<i className={`fas fa-${playToggle}`}></i>
+			<button className='play-btn' onClick={() => setIsPlaying(!isPlaying)}>
+				<i className={`fas fa-${isPlaying ? 'pause' : 'play'}`}></i>
 			</button>
-			<button className='next-btn'>
-				<i className='fas fa-forward'></i>
+			<button
+				className='next-btn'
+				onClick={() => {
+					advanceTrack(true);
+				}}>
+				<i className='fas fa-forward' />
 			</button>
 		</div>
 	);

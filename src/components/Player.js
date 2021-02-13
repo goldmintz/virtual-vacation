@@ -1,15 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-// import PlaylistCard from './PlaylistCard';
+import PlayerControls from './PlayerControls';
+import PlaylistCard from './PlaylistCard';
 
-const Player = ({ tracks, currentTrack, currentTrackIndex }) => {
-	const [isPlaying, setIsPlaying] = useState(false);
-
-	const { title, land, src } = currentTrack;
-
+const Player = ({ tracks, currentTrackIndex, setCurrentTrackIndex }) => {
 	const audioEl = useRef(null);
-	const playTrack = () => {
-		audioEl.current.play();
-	};
+	const [isPlaying, setIsPlaying] = useState(false);
 
 	useEffect(() => {
 		if (isPlaying) {
@@ -19,42 +14,44 @@ const Player = ({ tracks, currentTrack, currentTrackIndex }) => {
 		}
 	});
 
+	//used to show name of next track
+	const nextTrackIndex =
+		currentTrackIndex === tracks.length - 1 ? 0 : currentTrackIndex + 1;
+
+	const advanceTrack = (fwd = true) => {
+		// if user clicks forward button
+		if (fwd) {
+			setCurrentTrackIndex(() => {
+				//check if track is last on list, if last set index to 0 to restart playlist
+				let nextIndex =
+					currentTrackIndex === tracks.length - 1 ? 0 : currentTrackIndex + 1;
+
+				return nextIndex;
+			});
+			//if user clicks back button, just go backwards or reset to 0 if first track
+		} else {
+			setCurrentTrackIndex(() => {
+				let prevIndex = currentTrackIndex === 0 ? 0 : currentTrackIndex - 1;
+
+				return prevIndex;
+			});
+		}
+		setIsPlaying(true);
+	};
 	return (
 		<div className='player'>
-			<div className='player-wrapper'>
-				<div className='player-controls-wrapper'>
-					{title}: <strong>{land}</strong>
-					{/* Music Player Controls : Play/Pause, Fwd, and Back */}
-					<div className='player-controls'>
-						<button className='back-btn'>
-							<i className='fas fa-backward'></i>
-						</button>
-						<button className='play-btn'>
-							<i
-								className={`fas fa-${isPlaying ? 'play' : 'pause'}`}
-								onClick={() => console.log(audioEl.current.src)}></i>
-						</button>
-						<button className='next-btn'>
-							<i className='fas fa-forward'></i>
-						</button>
-					</div>
-					<audio src={src} ref={audioEl} controls></audio>
-					<p>
-						<strong>next up...</strong> {tracks[currentTrackIndex + 1].title}
-					</p>
-				</div>
-				{/* <div className='playlist-wrapper'>
-					<PlaylistCard />
-					<PlaylistCard />
-					<PlaylistCard />
-					<PlaylistCard />
-					<PlaylistCard />
-					<PlaylistCard />
-					<PlaylistCard />
-					<PlaylistCard />
-					<PlaylistCard />
-							</div> */}
-			</div>
+			<section className='player-wrapper'>
+				{tracks[currentTrackIndex].title}
+				<strong>{tracks[currentTrackIndex].land}</strong>
+				<PlayerControls
+					isPlaying={isPlaying}
+					setIsPlaying={setIsPlaying}
+					advanceTrack={advanceTrack}
+					currentTrackIndex={currentTrackIndex}
+				/>
+				<audio src={tracks[currentTrackIndex].src} ref={audioEl}></audio>
+				<strong>next up...</strong> {tracks[nextTrackIndex].title}
+			</section>
 		</div>
 	);
 };
