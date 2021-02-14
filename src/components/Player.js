@@ -40,9 +40,17 @@ const Player = ({ tracks, currentTrackIndex, setCurrentTrackIndex }) => {
 	};
 	return (
 		<div className='player'>
-			<section className='player-wrapper'>
-				{tracks[currentTrackIndex].title}
-				<strong>{tracks[currentTrackIndex].land}</strong>
+			<section>
+				<img
+					src={tracks[currentTrackIndex].imgSrc}
+					style={{ height: '300px' }}
+				/>
+				<div className='title-wrapper'>
+					<div className='trackname-ticker'>
+						<p>{tracks[currentTrackIndex].title}</p>
+					</div>
+				</div>
+				{tracks[currentTrackIndex].land}
 				<PlayerControls
 					isPlaying={isPlaying}
 					setIsPlaying={setIsPlaying}
