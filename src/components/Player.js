@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PlayerControls from './PlayerControls';
-import PlaylistCard from './PlaylistCard';
 
-const Player = ({ tracks, currentTrackIndex, setCurrentTrackIndex }) => {
+const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 	const audioEl = useRef(null);
 	const [isPlaying, setIsPlaying] = useState(false);
 
@@ -16,7 +15,9 @@ const Player = ({ tracks, currentTrackIndex, setCurrentTrackIndex }) => {
 
 	//used to show name of next track
 	const nextTrackIndex =
-		currentTrackIndex === tracks.length - 1 ? 0 : currentTrackIndex + 1;
+		currentTrackIndex === playlist.tracks.length - 1
+			? 0
+			: currentTrackIndex + 1;
 
 	const advanceTrack = (fwd = true) => {
 		// if user clicks forward button
@@ -24,7 +25,9 @@ const Player = ({ tracks, currentTrackIndex, setCurrentTrackIndex }) => {
 			setCurrentTrackIndex(() => {
 				//check if track is last on list, if last set index to 0 to restart playlist
 				let nextIndex =
-					currentTrackIndex === tracks.length - 1 ? 0 : currentTrackIndex + 1;
+					currentTrackIndex === playlist.tracks.length - 1
+						? 0
+						: currentTrackIndex + 1;
 
 				return nextIndex;
 			});
@@ -39,28 +42,23 @@ const Player = ({ tracks, currentTrackIndex, setCurrentTrackIndex }) => {
 		setIsPlaying(true);
 	};
 	return (
-		<div className='player'>
-			<section>
-				<img
-					src={tracks[currentTrackIndex].imgSrc}
-					style={{ height: '300px' }}
-				/>
-				<div className='title-wrapper'>
-					<div className='trackname-ticker'>
-						<p>{tracks[currentTrackIndex].title}</p>
-					</div>
+		<section>
+			<img src={playlist.land.image} style={{ height: '300px' }} alt='test' />
+			<div className='title-wrapper'>
+				<div className='trackname-ticker'>
+					<p>{playlist.tracks[currentTrackIndex].title}</p>
 				</div>
-				{tracks[currentTrackIndex].land}
-				<PlayerControls
-					isPlaying={isPlaying}
-					setIsPlaying={setIsPlaying}
-					advanceTrack={advanceTrack}
-					currentTrackIndex={currentTrackIndex}
-				/>
-				<audio src={tracks[currentTrackIndex].src} ref={audioEl}></audio>
-				<strong>next up...</strong> {tracks[nextTrackIndex].title}
-			</section>
-		</div>
+			</div>
+			{playlist.tracks[currentTrackIndex].land}
+			<PlayerControls
+				isPlaying={isPlaying}
+				setIsPlaying={setIsPlaying}
+				advanceTrack={advanceTrack}
+				currentTrackIndex={currentTrackIndex}
+			/>
+			<audio src={playlist.tracks[currentTrackIndex].src} ref={audioEl}></audio>
+			<strong>next up...</strong> {playlist.tracks[nextTrackIndex].title}
+		</section>
 	);
 };
 

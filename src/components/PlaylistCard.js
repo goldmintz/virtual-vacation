@@ -1,14 +1,13 @@
 import React from 'react';
-import placeholder from '../assets/images/placeholder.jpg';
 
-const PlaylistCard = ({ playlist }) => {
+const PlaylistCard = ({ land, handleSetLand }) => {
 	return (
-		<div className='playlist-card'>
-			<div className='card-title'>{playlist}</div>
-			<div className='playlist-card-img'>
-				<img src={placeholder} alt='placeholder' />
-			</div>
-		</div>
+		<img
+			className='land-playlist-card'
+			src={land.image}
+			alt={land.image}
+			onClick={() => handleSetLand(land)}
+		/>
 	);
 };
 
