@@ -49,18 +49,28 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	width: 100%;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding: 10px;
 	color: grey;
-	/* border-radius: 10px; */
+	outline: 1px solid red;
 }
 
-/* .player .player-controls {
-	margin: 20px;
-} */
-
 .player .track-details {
-	margin: 10px;
+	margin-bottom: 10px;
+}
+
+.progress-bar {
+	height: 10px;
+	background-color: grey;
+	margin-bottom: 10px;
+	width: 50%;
+	align-self: center;
+}
+
+#progress-fill {
+	display: block;
+	height: 100%;
+	width: 20%;
+	background-color: hotpink;
 }
 
 .controls-btn {

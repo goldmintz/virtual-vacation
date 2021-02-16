@@ -56,6 +56,11 @@ const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 				<audio
 					src={playlist.tracks[currentTrackIndex].src}
 					ref={audioEl}></audio>
+
+				<div class='progress-bar'>
+					<span id='progress-fill'></span>
+				</div>
+
 				<PlayerControls
 					isPlaying={isPlaying}
 					setIsPlaying={setIsPlaying}
