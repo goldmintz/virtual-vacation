@@ -4,6 +4,12 @@ export const tracks = [
 		src: './audio/Polynesian Resort - Complete Area Music.mp3',
 		land: 'Polynesian Resort',
 	},
+
+	{
+		title: 'Disneyland Welcome',
+		src: './audio/Welcome to Disneyland_ Disneyland Dedication.mp3',
+		land: 'Railroad',
+	},
 	{
 		title: 'Disneyland Railroad (Full Narration)',
 		src: './audio/Disneyland Railroad.mp3',

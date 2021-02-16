@@ -42,7 +42,7 @@ const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 		setIsPlaying(true);
 	};
 	return (
-		<section>
+		<section className='player'>
 			<img src={playlist.land.image} style={{ height: '300px' }} alt='test' />
 			<div className='title-wrapper'>
 				<div className='trackname-ticker'>

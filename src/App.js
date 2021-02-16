@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 // import children
 import PlaylistCard from './components/PlaylistCard';
 import Player from './components/Player';
+import PlayListRoster from './components/PlayListRoster';
 
 // import tracklist array
 import { tracks } from './tracks';
@@ -24,29 +25,32 @@ const App = () => {
 	const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
 	const handleSetLand = (land) => {
-		let landTracks = [];
-		let t = tracks.find((track) => track.land === land.name);
-		landTracks.push(t);
+		let filteredByLand = tracks.filter((track) => track.land === land.name);
+
 		setPlayList({
 			land,
-			tracks: landTracks,
+			tracks: filteredByLand,
 		});
 	};
 
+	console.log(playlist);
 	return (
 		<div className='app-wrapper'>
-			<div className='player'>
+			<section className='player-wrapper'>
 				<Player
 					playlist={playlist}
 					currentTrackIndex={currentTrackIndex}
 					setCurrentTrackIndex={setCurrentTrackIndex}
 				/>
-			</div>
-			<div className='albums'>
+
+				<PlayListRoster playlist={playlist} />
+			</section>
+
+			<section className='albums-wrapper'>
 				{lands.map((land, i) => (
 					<PlaylistCard land={land} handleSetLand={handleSetLand} key={i} />
 				))}
-			</div>
+			</section>
 		</div>
 	);
 };
