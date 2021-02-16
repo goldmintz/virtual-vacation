@@ -12,13 +12,14 @@ import { lands } from './lands';
 
 const App = () => {
 	//State Management
+	//TODO: Select land at random on initial mount OR welcome message about the app
 	const [playlist, setPlayList] = useState({
-		land: { name: 'Polynesian Resort', image: './images/tropical.jpg' },
+		land: { name: 'Enchanted Tiki Room', image: './images/tiki.jpg' },
 		tracks: [
 			{
 				title: 'Polynesian Resort - Complete Area Music',
 				src: './audio/Polynesian Resort - Complete Area Music.mp3',
-				land: 'Polynesian Resort',
+				land: 'Enchanted Tiki Room',
 			},
 		],
 	});
@@ -33,7 +34,6 @@ const App = () => {
 		});
 	};
 
-	console.log(playlist);
 	return (
 		<div className='app-wrapper'>
 			<section className='player-wrapper'>

@@ -41,23 +41,29 @@ const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 		}
 		setIsPlaying(true);
 	};
+
+	// Begin Component Render
 	return (
 		<section className='player'>
-			<img src={playlist.land.image} style={{ height: '300px' }} alt='test' />
-			<div className='title-wrapper'>
-				<div className='trackname-ticker'>
-					<p>{playlist.tracks[currentTrackIndex].title}</p>
+			<img className='albumArt' src={playlist.land.image} alt={playlist.Land} />
+
+			<section className='control-center'>
+				<div className='track-details'>
+					<div> {playlist.tracks[currentTrackIndex].title}</div>
+					<div> {playlist.tracks[currentTrackIndex].land}</div>
 				</div>
-			</div>
-			{playlist.tracks[currentTrackIndex].land}
-			<PlayerControls
-				isPlaying={isPlaying}
-				setIsPlaying={setIsPlaying}
-				advanceTrack={advanceTrack}
-				currentTrackIndex={currentTrackIndex}
-			/>
-			<audio src={playlist.tracks[currentTrackIndex].src} ref={audioEl}></audio>
-			<strong>next up...</strong> {playlist.tracks[nextTrackIndex].title}
+
+				<audio
+					src={playlist.tracks[currentTrackIndex].src}
+					ref={audioEl}></audio>
+				<PlayerControls
+					isPlaying={isPlaying}
+					setIsPlaying={setIsPlaying}
+					advanceTrack={advanceTrack}
+					currentTrackIndex={currentTrackIndex}
+				/>
+			</section>
+			{/* <strong>next up...</strong> {playlist.tracks[nextTrackIndex].title} */}
 		</section>
 	);
 };

@@ -2,7 +2,7 @@ export const tracks = [
 	{
 		title: 'Polynesian Resort - Complete Area Music',
 		src: './audio/Polynesian Resort - Complete Area Music.mp3',
-		land: 'Polynesian Resort',
+		land: 'Enchanted Tiki Room',
 	},
 
 	{
