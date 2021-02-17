@@ -15,6 +15,7 @@ const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 	//manage progress bar % complete
 	const [percentage, setPercentage] = useState(0);
 
+	// calculate % song complete for progress bar
 	const progressPerc = (currentTime / trackDuration) * 100;
 
 	useEffect(() => {
@@ -27,13 +28,12 @@ const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 	const formatTime = (seconds) => {
 		return (
 			[
-				Math.floor(seconds / 60), //minutes
-				Math.floor(seconds % 60), //seconds (whatever is left over from dividing into minutes)
+				Math.floor(seconds / 60), // calculate whole minutes
+				Math.floor(seconds % 60), //calculate remainder seconds (whatever is left over from dividing into minutes)
 			]
 				.map((el) => el.toString())
 
-				// we want double digits, prepend a "0"
-				// if necessary
+				//format to double digits
 				.map((el) => (el.length === 1 ? `0${el}` : el))
 
 				// join the result with a colon

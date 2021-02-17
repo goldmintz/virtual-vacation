@@ -5,8 +5,8 @@ const PlayListRoster = ({ playlist, setCurrentTrackIndex }) => {
 		<div className='playlist-roster'>
 			<div className='album-summary'>
 				<img
-					src={playlist.land.image}
 					id='playlist-thumbnail'
+					src={playlist.land.image}
 					alt={playlist.land.image}
 				/>
 				<div id='land-tagline'>
@@ -20,7 +20,7 @@ const PlayListRoster = ({ playlist, setCurrentTrackIndex }) => {
 					className='track-listing'
 					key={i}
 					onClick={() => setCurrentTrackIndex(i)}>
-					{track.title}
+					<span>{i + 1}</span> {track.title}
 				</div>
 			))}
 		</div>
