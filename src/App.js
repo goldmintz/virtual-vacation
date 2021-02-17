@@ -43,7 +43,10 @@ const App = () => {
 					setCurrentTrackIndex={setCurrentTrackIndex}
 				/>
 
-				<PlayListRoster playlist={playlist} />
+				<PlayListRoster
+					playlist={playlist}
+					setCurrentTrackIndex={setCurrentTrackIndex}
+				/>
 			</section>
 
 			<section className='albums-wrapper'>

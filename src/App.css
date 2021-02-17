@@ -27,7 +27,6 @@ body {
 .player-wrapper {
 	width: 100%;
 	display: flex;
-	border-bottom: 2px solid black;
 }
 
 .player {
@@ -51,7 +50,6 @@ body {
 	width: 100%;
 	padding: 10px;
 	color: grey;
-	outline: 1px solid red;
 }
 
 .player .track-details {

@@ -2,23 +2,46 @@ import React, { useEffect, useState, useRef } from 'react';
 import PlayerControls from './PlayerControls';
 
 const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
+	// define audio element
 	const audioEl = useRef(null);
+
+	//manage state for track duration and play countdown
+	const [trackDuration, setTrackDuration] = useState(0);
+	const [currentTime, setCurrentTime] = useState(0);
+
+	//manage play/pause/load
 	const [isPlaying, setIsPlaying] = useState(false);
 
+	//manage progress bar % complete
+	const [percentage, setPercentage] = useState(0);
+
+	const progressPerc = (currentTime / trackDuration) * 100;
+
 	useEffect(() => {
-		if (isPlaying) {
-			audioEl.current.play();
-		} else {
-			audioEl.current.pause();
-		}
-	});
+		isPlaying ? audioEl.current.play() : audioEl.current.pause();
+		//update perc as song plays
+		setPercentage(progressPerc);
+	}, [isPlaying, progressPerc]);
 
-	//used to show name of next track
-	const nextTrackIndex =
-		currentTrackIndex === playlist.tracks.length - 1
-			? 0
-			: currentTrackIndex + 1;
+	//turn the trackDuration and currentTime into something readable
+	const formatTime = (seconds) => {
+		return (
+			[
+				Math.floor(seconds / 60), //minutes
+				Math.floor(seconds % 60), //seconds (whatever is left over from dividing into minutes)
+			]
+				.map((el) => el.toString())
 
+				// we want double digits, prepend a "0"
+				// if necessary
+				.map((el) => (el.length === 1 ? `0${el}` : el))
+
+				// join the result with a colon
+				.join(':')
+		);
+	};
+
+	//move through the track list (fwd, back) using controls
 	const advanceTrack = (fwd = true) => {
 		// if user clicks forward button
 		if (fwd) {
@@ -55,10 +78,22 @@ const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 
 				<audio
 					src={playlist.tracks[currentTrackIndex].src}
-					ref={audioEl}></audio>
+					ref={audioEl}
+					onLoadedMetadata={() => {
+						setTrackDuration(audioEl.current.duration);
+					}}
+					onTimeUpdate={() => {
+						// on update, retrieve currentTime from ref and set time in state,
+						setCurrentTime(audioEl.current.currentTime);
+					}}
+				/>
 
-				<div class='progress-bar'>
-					<span id='progress-fill'></span>
+				<div>
+					{formatTime(currentTime)} - {formatTime(trackDuration)}
+				</div>
+
+				<div className='progress-bar'>
+					<span id='progress-fill' style={{ width: `${percentage}%` }}></span>
 				</div>
 
 				<PlayerControls

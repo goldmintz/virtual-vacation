@@ -1,10 +1,14 @@
 import React from 'react';
 
-const PlayListRoster = ({ playlist }) => {
+const PlayListRoster = ({ playlist, setCurrentTrackIndex }) => {
 	return (
 		<div className='playlist-roster'>
 			<div className='album-summary'>
-				<img src={playlist.land.image} id='playlist-thumbnail' />
+				<img
+					src={playlist.land.image}
+					id='playlist-thumbnail'
+					alt={playlist.land.image}
+				/>
 				<div id='land-tagline'>
 					Land summary goes here. Lorem ipsum dolor sit amet, consectetur
 					adipiscing elit. Maecenas orci neque, viverra id blandit at, elementum
@@ -12,7 +16,10 @@ const PlayListRoster = ({ playlist }) => {
 				</div>
 			</div>
 			{playlist.tracks.map((track, i) => (
-				<div className='track-listing' key={i}>
+				<div
+					className='track-listing'
+					key={i}
+					onClick={() => setCurrentTrackIndex(i)}>
 					{track.title}
 				</div>
 			))}
