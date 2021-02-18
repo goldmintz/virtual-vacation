@@ -27,7 +27,7 @@ body {
 .player-wrapper {
 	width: 100%;
 	display: flex;
-	margin-bottom: 2rem;
+	/* margin-bottom: 2rem; */
 }
 
 .player {
@@ -56,12 +56,16 @@ body {
 }
 
 .player .track-details {
-	margin-bottom: 1rem 0rem;
+	margin-bottom: 0.5rem;
 }
 
 #track-name {
 	font-weight: bold;
 	margin-bottom: 0.3rem;
+}
+
+#track-land {
+	font-size: 0.95rem;
 }
 
 .progress-bar-wrapper {
@@ -78,6 +82,7 @@ body {
 	width: 80%;
 	margin: 0rem 1rem;
 	opacity: 20%;
+	border-radius: 20px;
 }
 
 #progress-fill {
@@ -85,6 +90,11 @@ body {
 	height: 100%;
 	width: 20%;
 	background-color: black;
+	border-radius: 20px;
+}
+
+.progress-bar-time {
+	font-size: 0.85rem;
 }
 
 .controls-btn {
@@ -110,12 +120,11 @@ body {
 	display: flex;
 	flex-direction: column;
 	padding: 1rem 2rem;
-	background-color: gainsboro;
 }
 
 .album-summary {
 	display: flex;
-	align-items: center;
+	align-items: top;
 	margin-bottom: 1rem;
 }
 
@@ -129,15 +138,31 @@ body {
 	color: grey;
 }
 
+.tracklist-wrapper {
+	background-color: gainsboro;
+	height: 100%;
+	padding: 1rem;
+	margin-bottom: 0.5rem;
+	overflow-y: scroll;
+	border-radius: 0.5rem;
+}
+
 .track-listing {
 	text-align: left;
 	border: none;
 	background-color: transparent;
+	margin-bottom: 0.3rem;
 }
 
 /* TODO: Add transition for hover so it is not jumpy */
 .track-listing:hover {
-	background-color: gainsboro;
+	background-color: black;
+	color: white;
+}
+
+.current-track {
+	background-color: pink;
+	color: white;
 }
 
 .albums-wrapper {

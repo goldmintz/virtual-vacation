@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import PlayerControls from './PlayerControls';
 
-const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
-	// define audio element
-	const audioEl = useRef(null);
-
+const Player = ({
+	playlist,
+	currentTrackIndex,
+	setCurrentTrackIndex,
+	audioEl,
+}) => {
 	//manage state for track duration and play countdown
 	const [trackDuration, setTrackDuration] = useState(0);
 	const [currentTime, setCurrentTime] = useState(0);
@@ -22,7 +24,7 @@ const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 		isPlaying ? audioEl.current.play() : audioEl.current.pause();
 		//update perc as song plays
 		setPercentage(progressPerc);
-	}, [isPlaying, progressPerc]);
+	}, [audioEl, isPlaying, progressPerc]);
 
 	//turn the trackDuration and currentTime into something readable
 	const formatTime = (seconds) => {
@@ -89,11 +91,11 @@ const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 				/>
 
 				<div className='progress-bar-wrapper'>
-					{formatTime(currentTime)}
+					<div className='progress-bar-time'>{formatTime(currentTime)}</div>
 					<div className='progress-bar'>
 						<div id='progress-fill' style={{ width: `${percentage}%` }}></div>
 					</div>
-					{formatTime(trackDuration)}
+					<div className='progress-bar-time'>{formatTime(trackDuration)}</div>
 				</div>
 
 				<PlayerControls

@@ -8,12 +8,12 @@ export const tracks = [
 	{
 		title: 'Disneyland Welcome',
 		src: './audio/Welcome to Disneyland_ Disneyland Dedication.mp3',
-		land: 'Railroad',
+		land: 'The DisneyLand Railroad',
 	},
 	{
 		title: 'Disneyland Railroad (Full Narration)',
 		src: './audio/Disneyland Railroad.mp3',
-		land: 'Railroad',
+		land: 'The DisneyLand Railroad',
 	},
 	{
 		title: 'Grim Grinning Ghosts',
