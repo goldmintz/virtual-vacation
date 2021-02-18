@@ -53,6 +53,17 @@ const App = () => {
 				{lands.map((land, i) => (
 					<PlaylistCard land={land} handleSetLand={handleSetLand} key={i} />
 				))}
+
+				{/* TODO: Remove these extra maps- just here to fill out wrapper with content */}
+				{lands.map((land, i) => (
+					<PlaylistCard land={land} handleSetLand={handleSetLand} key={i} />
+				))}
+				{lands.map((land, i) => (
+					<PlaylistCard land={land} handleSetLand={handleSetLand} key={i} />
+				))}
+				{lands.map((land, i) => (
+					<PlaylistCard land={land} handleSetLand={handleSetLand} key={i} />
+				))}
 			</section>
 		</div>
 	);

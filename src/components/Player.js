@@ -72,8 +72,8 @@ const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 
 			<section className='control-center'>
 				<div className='track-details'>
-					<div> {playlist.tracks[currentTrackIndex].title}</div>
-					<div> {playlist.tracks[currentTrackIndex].land}</div>
+					<div id='track-name'> {playlist.tracks[currentTrackIndex].title}</div>
+					<div id='track-land'> {playlist.tracks[currentTrackIndex].land}</div>
 				</div>
 
 				<audio
@@ -88,12 +88,12 @@ const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 					}}
 				/>
 
-				<div>
-					{formatTime(currentTime)} - {formatTime(trackDuration)}
-				</div>
-
-				<div className='progress-bar'>
-					<span id='progress-fill' style={{ width: `${percentage}%` }}></span>
+				<div className='progress-bar-wrapper'>
+					{formatTime(currentTime)}
+					<div className='progress-bar'>
+						<div id='progress-fill' style={{ width: `${percentage}%` }}></div>
+					</div>
+					{formatTime(trackDuration)}
 				</div>
 
 				<PlayerControls
