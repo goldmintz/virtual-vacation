@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PlayerControls from './PlayerControls';
+import PlayListRoster from './PlayListRoster';
 
-const Player = ({
-	playlist,
-	currentTrackIndex,
-	setCurrentTrackIndex,
-	audioEl,
-}) => {
+const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 	//manage state for track duration and play countdown
 	const [trackDuration, setTrackDuration] = useState(0);
 	const [currentTime, setCurrentTime] = useState(0);
@@ -20,11 +16,14 @@ const Player = ({
 	// calculate % song complete for progress bar
 	const progressPerc = (currentTime / trackDuration) * 100;
 
+	const audioEl = useRef(null);
+
 	useEffect(() => {
+		// setIsPlaying(!isPlaying);
 		isPlaying ? audioEl.current.play() : audioEl.current.pause();
 		//update perc as song plays
 		setPercentage(progressPerc);
-	}, [audioEl, isPlaying, progressPerc]);
+	}, [progressPerc, isPlaying]);
 
 	//turn the trackDuration and currentTime into something readable
 	const formatTime = (seconds) => {
@@ -69,44 +68,65 @@ const Player = ({
 
 	// Begin Component Render
 	return (
-		<section className='player'>
-			<img className='albumArt' src={playlist.land.image} alt={playlist.Land} />
-
-			<section className='control-center'>
-				<div className='track-details'>
-					<div id='track-name'> {playlist.tracks[currentTrackIndex].title}</div>
-					<div id='track-land'> {playlist.tracks[currentTrackIndex].land}</div>
-				</div>
-
-				<audio
-					src={playlist.tracks[currentTrackIndex].src}
-					ref={audioEl}
-					onLoadedMetadata={() => {
-						setTrackDuration(audioEl.current.duration);
-					}}
-					onTimeUpdate={() => {
-						// on update, retrieve currentTime from ref and set time in state,
-						setCurrentTime(audioEl.current.currentTime);
-					}}
+		<>
+			<section className='player'>
+				<img
+					className='albumArt'
+					src={playlist.land.image}
+					alt={playlist.Land}
 				/>
 
-				<div className='progress-bar-wrapper'>
-					<div className='progress-bar-time'>{formatTime(currentTime)}</div>
-					<div className='progress-bar'>
-						<div id='progress-fill' style={{ width: `${percentage}%` }}></div>
+				<section className='control-center'>
+					<div className='track-details'>
+						<div id='track-name'>
+							{' '}
+							{playlist.tracks[currentTrackIndex].title}
+						</div>
+						<div id='track-land'>
+							{' '}
+							{playlist.tracks[currentTrackIndex].land}
+						</div>
 					</div>
-					<div className='progress-bar-time'>{formatTime(trackDuration)}</div>
-				</div>
 
-				<PlayerControls
-					isPlaying={isPlaying}
-					setIsPlaying={setIsPlaying}
-					advanceTrack={advanceTrack}
-					currentTrackIndex={currentTrackIndex}
-				/>
+					<audio
+						src={playlist.tracks[currentTrackIndex].src}
+						ref={audioEl}
+						onLoadedMetadata={() => {
+							setTrackDuration(audioEl.current.duration);
+						}}
+						onTimeUpdate={() => {
+							// on update, retrieve currentTime from ref and set time in state,
+							setCurrentTime(audioEl.current.currentTime);
+						}}
+					/>
+
+					<div className='progress-bar-wrapper'>
+						<div className='progress-bar-time'>{formatTime(currentTime)}</div>
+						<div className='progress-bar'>
+							<div id='progress-fill' style={{ width: `${percentage}%` }}></div>
+						</div>
+						<div className='progress-bar-time'>{formatTime(trackDuration)}</div>
+					</div>
+
+					<PlayerControls
+						isPlaying={isPlaying}
+						setIsPlaying={setIsPlaying}
+						advanceTrack={advanceTrack}
+						currentTrackIndex={currentTrackIndex}
+					/>
+				</section>
+				{/* <strong>next up...</strong> {playlist.tracks[nextTrackIndex].title} */}
 			</section>
-			{/* <strong>next up...</strong> {playlist.tracks[nextTrackIndex].title} */}
-		</section>
+
+			<PlayListRoster
+				playlist={playlist}
+				currentTrackIndex={currentTrackIndex}
+				setCurrentTrackIndex={setCurrentTrackIndex}
+				isPlaying={isPlaying}
+				setIsPlaying={setIsPlaying}
+				audioEl={audioEl}
+			/>
+		</>
 	);
 };
 

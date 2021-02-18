@@ -156,12 +156,11 @@ body {
 
 /* TODO: Add transition for hover so it is not jumpy */
 .track-listing:hover {
-	background-color: black;
-	color: white;
+	border-bottom: 1px solid grey;
 }
 
 .current-track {
-	background-color: pink;
+	background-color: grey;
 	color: white;
 }
 

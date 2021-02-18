@@ -1,10 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 // import children
 import PlaylistCard from './components/PlaylistCard';
 import Player from './components/Player';
-import PlayListRoster from './components/PlayListRoster';
 
 // import tracklist array
 import { tracks } from './tracks';
@@ -38,19 +37,10 @@ const App = () => {
 		});
 	};
 
-	const audioEl = useRef(null);
 	return (
 		<div className='app-wrapper'>
 			<section className='player-wrapper'>
 				<Player
-					audioEl={audioEl}
-					playlist={playlist}
-					currentTrackIndex={currentTrackIndex}
-					setCurrentTrackIndex={setCurrentTrackIndex}
-				/>
-
-				<PlayListRoster
-					audioEl={audioEl}
 					playlist={playlist}
 					currentTrackIndex={currentTrackIndex}
 					setCurrentTrackIndex={setCurrentTrackIndex}
