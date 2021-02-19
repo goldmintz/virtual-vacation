@@ -101,6 +101,17 @@ body {
 	font-size: 0.85rem;
 }
 
+.player-controls {
+	display: flex;
+	width: 80%;
+	align-self: center;
+	justify-content: space-between;
+}
+
+.secondary-controls i {
+	font-size: 14px;
+}
+
 .controls-btn {
 	color: black;
 	border: transparent;
@@ -110,12 +121,17 @@ body {
 	cursor: pointer;
 }
 
+/* .main-controls {
+	margin: 0px 20px;
+} */
+
 .play-btn {
 	margin: 0rem 1rem;
 }
 
-.disabled {
-	color: greenyellow;
+button:disabled,
+button[disabled] {
+	color: red;
 }
 
 /* Left Column */
@@ -133,7 +149,8 @@ body {
 }
 
 #playlist-thumbnail {
-	height: 7rem;
+	height: 6rem;
+	width: 5rem;
 }
 
 #land-tagline {
@@ -164,8 +181,7 @@ body {
 }
 
 .current-track {
-	background-color: grey;
-	color: white;
+	font-weight: bold;
 }
 
 .albums-wrapper {
@@ -194,8 +210,8 @@ body {
 }
 
 .land-playlist-card {
-	height: 8.75rem;
-	width: 8.125rem;
+	height: 7rem;
+	width: 5rem;
 	margin-right: 1.85rem;
 }
 

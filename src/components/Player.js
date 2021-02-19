@@ -115,6 +115,7 @@ const Player = ({
 						setIsPlaying={setIsPlaying}
 						advanceTrack={advanceTrack}
 						currentTrackIndex={currentTrackIndex}
+						tracks={playlist.tracks}
 					/>
 				</section>
 				{/* <strong>next up...</strong> {playlist.tracks[nextTrackIndex].title} */}
