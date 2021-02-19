@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const PlayListRoster = ({
 	playlist,
@@ -8,21 +8,12 @@ const PlayListRoster = ({
 	setIsPlaying,
 	audioEl,
 }) => {
-	//do not apply the active class to the first track upon initial render, only add if track is selected or is currently playing on tracklist
-	const [initalLoad, setInitialLoad] = useState(true);
-	useEffect(() => {
-		if (isPlaying || currentTrackIndex !== 0) {
-			setInitialLoad(false);
-		}
-	}, [isPlaying, currentTrackIndex]);
-
-	console.log(currentTrackIndex);
-
+	//on click or is current song, apply the active class
+	//don't
 	//define this outside of the render because audioEl loads initially as null
 	const addCurrentTrackStyle = (i) => {
 		if (
-			!initalLoad &&
-			i === currentTrackIndex &&
+			// i === currentTrackIndex &&
 			audioEl.current != null &&
 			(isPlaying || audioEl.current.paused)
 		) {
@@ -51,7 +42,10 @@ const PlayListRoster = ({
 			<div className='tracklist-wrapper'>
 				{playlist.tracks.map((track, i) => (
 					<div
-						className={'track-listing ' + addCurrentTrackStyle(i)}
+						className={
+							'track-listing ' +
+							(i === currentTrackIndex ? 'current-track' : '')
+						}
 						key={i}
 						onClick={() => {
 							setCurrentTrackIndex(i);

@@ -2,13 +2,16 @@ import React, { useEffect, useState, useRef } from 'react';
 import PlayerControls from './PlayerControls';
 import PlayListRoster from './PlayListRoster';
 
-const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
+const Player = ({
+	playlist,
+	currentTrackIndex,
+	setCurrentTrackIndex,
+	isPlaying,
+	setIsPlaying,
+}) => {
 	//manage state for track duration and play countdown
 	const [trackDuration, setTrackDuration] = useState(0);
 	const [currentTime, setCurrentTime] = useState(0);
-
-	//manage play/pause/load
-	const [isPlaying, setIsPlaying] = useState(false);
 
 	//manage progress bar % complete
 	const [percentage, setPercentage] = useState(0);
@@ -19,7 +22,6 @@ const Player = ({ playlist, currentTrackIndex, setCurrentTrackIndex }) => {
 	const audioEl = useRef(null);
 
 	useEffect(() => {
-		// setIsPlaying(!isPlaying);
 		isPlaying ? audioEl.current.play() : audioEl.current.pause();
 		//update perc as song plays
 		setPercentage(progressPerc);

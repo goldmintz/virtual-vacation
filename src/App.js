@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 // import children
@@ -26,11 +26,31 @@ const App = () => {
 			},
 		],
 	});
+
 	const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+	//manage play/pause/load
+	const [isPlaying, setIsPlaying] = useState(false);
+
+	const prevLand = usePrevious(playlist.land.name);
+	console.log(`current: ${playlist.land.name}`, `previous: ${prevLand}`);
+
+	// Hook
+	function usePrevious(value) {
+		// The ref object is a generic container whose current property is mutable ...
+		// ... and can hold any value, similar to an instance property on a class
+		const ref = useRef('Enchanted Tiki Room');
+
+		// Store current value in ref
+		useEffect(() => {
+			ref.current = value;
+		}, [value]); // Only re-run if value changes
+
+		// Return previous value (happens before update in useEffect above)
+		return ref.current;
+	}
 
 	const handleSetLand = (land) => {
 		let filteredByLand = tracks.filter((track) => track.land === land.name);
-
 		setPlayList({
 			land,
 			tracks: filteredByLand,
@@ -44,23 +64,19 @@ const App = () => {
 					playlist={playlist}
 					currentTrackIndex={currentTrackIndex}
 					setCurrentTrackIndex={setCurrentTrackIndex}
+					isPlaying={isPlaying}
+					setIsPlaying={setIsPlaying}
 				/>
 			</section>
 
 			<section className='albums-wrapper'>
 				{lands.map((land, i) => (
-					<PlaylistCard land={land} handleSetLand={handleSetLand} key={i} />
-				))}
-
-				{/* TODO: Remove these extra maps- just here to fill out wrapper with content */}
-				{lands.map((land, i) => (
-					<PlaylistCard land={land} handleSetLand={handleSetLand} key={i} />
-				))}
-				{lands.map((land, i) => (
-					<PlaylistCard land={land} handleSetLand={handleSetLand} key={i} />
-				))}
-				{lands.map((land, i) => (
-					<PlaylistCard land={land} handleSetLand={handleSetLand} key={i} />
+					<PlaylistCard
+						key={land.name}
+						land={land}
+						handleSetLand={handleSetLand}
+						setIsPlaying={setIsPlaying}
+					/>
 				))}
 			</section>
 		</div>
