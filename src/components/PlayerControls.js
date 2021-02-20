@@ -6,20 +6,18 @@ const PlayerControls = ({
 	advanceTrack,
 	currentTrackIndex,
 	tracks,
-	playThruType,
-	setPlayThruType,
+	isInfinite,
+	setIsInfinite,
 }) => {
 	return (
 		<div className='player-controls'>
 			<div className='secondary-controls'>
 				<button
 					className='controls-btn infinite-btn'
-					onClick={() => setPlayThruType('infinite')}>
+					onClick={() => setIsInfinite(true)}>
 					<i className='fas fa-infinity'></i>
 				</button>
-				<button
-					className='controls-btn shuffle-btn'
-					onClick={() => setPlayThruType('shuffle')}>
+				<button className='controls-btn shuffle-btn'>
 					<i className='fas fa-random'></i>
 				</button>
 			</div>

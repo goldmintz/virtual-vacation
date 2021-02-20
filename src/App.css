@@ -131,7 +131,7 @@ body {
 
 button:disabled,
 button[disabled] {
-	color: red;
+	opacity: 10%;
 }
 
 /* Left Column */

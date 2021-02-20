@@ -14,10 +14,9 @@ const Player = ({
 	const [currentTime, setCurrentTime] = useState(0);
 
 	//Set whether playlist ends on last song (normal) or loops (infinite)
-	const [playThruType, setPlayThruType] = useState('normal');
+	const [isInfinite, setIsInfinite] = useState(false);
 
 	const handleNextTrack = () => {
-		console.log(playThruType);
 		const lastTrack =
 			currentTrackIndex === playlist.tracks.length - 1 &&
 			currentTrackIndex !== 0;
@@ -27,11 +26,11 @@ const Player = ({
 			return setCurrentTrackIndex((currentTrackIndex) => currentTrackIndex + 1);
 		}
 		// //if it is the last track and playthru is normal, end on last song
-		if (lastTrack && playThruType === 'normal') {
+		if (lastTrack && !isInfinite) {
 			return setIsPlaying(!isPlaying);
 		}
 		//if it is the last track, but playthru is set to infinite, start over again
-		if (lastTrack && playThruType === 'infinite') {
+		if (lastTrack && isInfinite) {
 			return setCurrentTrackIndex(() => 0);
 		}
 	};
@@ -140,8 +139,8 @@ const Player = ({
 						advanceTrack={advanceTrack}
 						currentTrackIndex={currentTrackIndex}
 						tracks={playlist.tracks}
-						playThruType={playThruType}
-						setPlayThruType={setPlayThruType}
+						isInfinite={isInfinite}
+						setIsInfinite={setIsInfinite}
 					/>
 				</section>
 			</section>
