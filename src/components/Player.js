@@ -9,9 +9,32 @@ const Player = ({
 	isPlaying,
 	setIsPlaying,
 }) => {
-	//manage state for track duration and play countdown
+	//manage state for track duration, playthrough (normal, random, infinite) and play timer countdown
 	const [trackDuration, setTrackDuration] = useState(0);
 	const [currentTime, setCurrentTime] = useState(0);
+
+	//Set whether playlist ends on last song (normal) or loops (infinite)
+	const [playThruType, setPlayThruType] = useState('normal');
+
+	const handleNextTrack = () => {
+		console.log(playThruType);
+		const lastTrack =
+			currentTrackIndex === playlist.tracks.length - 1 &&
+			currentTrackIndex !== 0;
+
+		//if it's not the last track, move on to next index
+		if (!lastTrack) {
+			return setCurrentTrackIndex((currentTrackIndex) => currentTrackIndex + 1);
+		}
+		// //if it is the last track and playthru is normal, end on last song
+		if (lastTrack && playThruType === 'normal') {
+			return setIsPlaying(!isPlaying);
+		}
+		//if it is the last track, but playthru is set to infinite, start over again
+		if (lastTrack && playThruType === 'infinite') {
+			return setCurrentTrackIndex(() => 0);
+		}
+	};
 
 	//manage progress bar % complete
 	const [percentage, setPercentage] = useState(0);
@@ -25,7 +48,7 @@ const Player = ({
 		isPlaying ? audioEl.current.play() : audioEl.current.pause();
 		//update perc as song plays
 		setPercentage(progressPerc);
-	}, [progressPerc, isPlaying]);
+	}, [progressPerc, isPlaying, audioEl]);
 
 	//turn the trackDuration and currentTime into something readable
 	const formatTime = (seconds) => {
@@ -100,6 +123,7 @@ const Player = ({
 							// on update, retrieve currentTime from ref and set time in state,
 							setCurrentTime(audioEl.current.currentTime);
 						}}
+						onEnded={() => handleNextTrack()}
 					/>
 
 					<div className='progress-bar-wrapper'>
@@ -116,9 +140,10 @@ const Player = ({
 						advanceTrack={advanceTrack}
 						currentTrackIndex={currentTrackIndex}
 						tracks={playlist.tracks}
+						playThruType={playThruType}
+						setPlayThruType={setPlayThruType}
 					/>
 				</section>
-				{/* <strong>next up...</strong> {playlist.tracks[nextTrackIndex].title} */}
 			</section>
 
 			<PlayListRoster

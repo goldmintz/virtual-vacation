@@ -11,17 +11,17 @@ const PlayListRoster = ({
 	//on click or is current song, apply the active class
 	//don't
 	//define this outside of the render because audioEl loads initially as null
-	const addCurrentTrackStyle = (i) => {
-		if (
-			// i === currentTrackIndex &&
-			audioEl.current != null &&
-			(isPlaying || audioEl.current.paused)
-		) {
-			return 'current-track';
-		} else {
-			return '';
-		}
-	};
+	// const addCurrentTrackStyle = (i) => {
+	// 	if (
+	// 		// i === currentTrackIndex &&
+	// 		audioEl.current != null &&
+	// 		(isPlaying || audioEl.current.paused)
+	// 	) {
+	// 		return 'current-track';
+	// 	} else {
+	// 		return '';
+	// 	}
+	// };
 
 	return (
 		<div className='playlist-roster'>

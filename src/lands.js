@@ -17,4 +17,10 @@ export const lands = [
 		summary:
 			'NOLA land summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas orci neque, viverra id blandit at, elementum ac lacus. Nam blandit ultrices turpis ut maximus.',
 	},
+	{
+		name: 'Testy McTest Face',
+		image: './images/test.jpg',
+		summary:
+			'Test land summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas orci neque, viverra id blandit at, elementum ac lacus. Nam blandit ultrices turpis ut maximus.',
+	},
 ];

@@ -21,4 +21,14 @@ export const tracks = [
 		src: './audio/Grim Grinning Ghosts (Blarsa Remix).mp3',
 		land: 'New Orleans Square',
 	},
+	{
+		title: 'Crowing',
+		src: './audio/Test_Crow.mp3',
+		land: 'Testy McTest Face',
+	},
+	{
+		title: 'Magic Wand',
+		src: './audio/Test_Wand.mp3',
+		land: 'Testy McTest Face',
+	},
 ];

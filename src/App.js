@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 // import children
@@ -31,23 +31,22 @@ const App = () => {
 	//manage play/pause/load
 	const [isPlaying, setIsPlaying] = useState(false);
 
-	const prevLand = usePrevious(playlist.land.name);
-	console.log(`current: ${playlist.land.name}`, `previous: ${prevLand}`);
+	// const prevLand = usePrevious(playlist.land.name);
 
-	// Hook
-	function usePrevious(value) {
-		// The ref object is a generic container whose current property is mutable ...
-		// ... and can hold any value, similar to an instance property on a class
-		const ref = useRef('Enchanted Tiki Room');
+	// // Hook
+	// function usePrevious(value) {
+	// 	// The ref object is a generic container whose current property is mutable ...
+	// 	// ... and can hold any value, similar to an instance property on a class
+	// 	const ref = useRef('Enchanted Tiki Room');
 
-		// Store current value in ref
-		useEffect(() => {
-			ref.current = value;
-		}, [value]); // Only re-run if value changes
+	// 	// Store current value in ref
+	// 	useEffect(() => {
+	// 		ref.current = value;
+	// 	}, [value]); // Only re-run if value changes
 
-		// Return previous value (happens before update in useEffect above)
-		return ref.current;
-	}
+	// 	// Return previous value (happens before update in useEffect above)
+	// 	return ref.current;
+	// }
 
 	const handleSetLand = (land) => {
 		let filteredByLand = tracks.filter((track) => track.land === land.name);
@@ -76,6 +75,7 @@ const App = () => {
 						land={land}
 						handleSetLand={handleSetLand}
 						setIsPlaying={setIsPlaying}
+						setCurrentTrackIndex={setCurrentTrackIndex}
 					/>
 				))}
 			</section>

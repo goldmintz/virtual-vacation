@@ -1,6 +1,11 @@
 import React from 'react';
 
-const PlaylistCard = ({ land, handleSetLand, setIsPlaying }) => {
+const PlaylistCard = ({
+	land,
+	handleSetLand,
+	setIsPlaying,
+	setCurrentTrackIndex,
+}) => {
 	return (
 		<img
 			className='land-playlist-card'
@@ -9,6 +14,7 @@ const PlaylistCard = ({ land, handleSetLand, setIsPlaying }) => {
 			onClick={() => {
 				handleSetLand(land);
 				setIsPlaying(false);
+				setCurrentTrackIndex(0);
 			}}
 		/>
 	);
