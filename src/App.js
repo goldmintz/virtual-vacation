@@ -5,6 +5,9 @@ import './App.css';
 import PlaylistCard from './components/PlaylistCard';
 import Player from './components/Player';
 
+// import children/views
+import FullScreen from './views/FullScreen';
+
 // import tracklist array
 import { tracks } from './tracks';
 import { lands } from './lands';
@@ -31,23 +34,6 @@ const App = () => {
 	//manage play/pause/load
 	const [isPlaying, setIsPlaying] = useState(false);
 
-	// const prevLand = usePrevious(playlist.land.name);
-
-	// // Hook
-	// function usePrevious(value) {
-	// 	// The ref object is a generic container whose current property is mutable ...
-	// 	// ... and can hold any value, similar to an instance property on a class
-	// 	const ref = useRef('Enchanted Tiki Room');
-
-	// 	// Store current value in ref
-	// 	useEffect(() => {
-	// 		ref.current = value;
-	// 	}, [value]); // Only re-run if value changes
-
-	// 	// Return previous value (happens before update in useEffect above)
-	// 	return ref.current;
-	// }
-
 	const handleSetLand = (land) => {
 		let filteredByLand = tracks.filter((track) => track.land === land.name);
 		setPlayList({
@@ -57,29 +43,31 @@ const App = () => {
 	};
 
 	return (
-		<div className='app-wrapper'>
-			<section className='player-wrapper'>
-				<Player
+		<>
+			<div className='app-wrapper'>
+				
+				<FullScreen
 					playlist={playlist}
 					currentTrackIndex={currentTrackIndex}
 					setCurrentTrackIndex={setCurrentTrackIndex}
 					isPlaying={isPlaying}
 					setIsPlaying={setIsPlaying}
 				/>
-			</section>
+				{ /*
 
-			<section className='albums-wrapper'>
-				{lands.map((land, i) => (
-					<PlaylistCard
-						key={land.name}
-						land={land}
-						handleSetLand={handleSetLand}
-						setIsPlaying={setIsPlaying}
-						setCurrentTrackIndex={setCurrentTrackIndex}
-					/>
-				))}
-			</section>
-		</div>
+				<section className='albums-wrapper'>
+					{lands.map((land, i) => (
+						<PlaylistCard
+							key={land.name}
+							land={land}
+							handleSetLand={handleSetLand}
+							setIsPlaying={setIsPlaying}
+							setCurrentTrackIndex={setCurrentTrackIndex}
+						/>
+					))}
+					</section> */}
+			</div>
+		</>
 	);
 };
 

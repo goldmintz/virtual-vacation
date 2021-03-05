@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import PlayerControls from './PlayerControls';
-import PlayListRoster from './PlayListRoster';
 
-const Player = ({
+const MiniPlayer = ({
 	playlist,
 	currentTrackIndex,
 	setCurrentTrackIndex,
@@ -93,9 +91,12 @@ const Player = ({
 	// Begin Component Render
 	return (
 		<>
-			<section className='mini-player'>
-				<section className='control-center'>
-					<div className='track-details'>
+			<div className='mini-player-wrapper'>
+				<div className='progress-bar'>
+					<div id='progress-fill' style={{ width: `${percentage}%` }}></div>
+				</div>
+				<section>
+					<div>
 						<div id='track-name'>
 							{' '}
 							{playlist.tracks[currentTrackIndex].title}
@@ -118,37 +119,11 @@ const Player = ({
 						}}
 						onEnded={() => handleNextTrack()}
 					/>
-
-					<div className='progress-bar-wrapper'>
-						<div className='progress-bar-time'>{formatTime(currentTime)}</div>
-						<div className='progress-bar'>
-							<div id='progress-fill' style={{ width: `${percentage}%` }}></div>
-						</div>
-						<div className='progress-bar-time'>{formatTime(trackDuration)}</div>
-					</div>
-
-					<PlayerControls
-						isPlaying={isPlaying}
-						setIsPlaying={setIsPlaying}
-						advanceTrack={advanceTrack}
-						currentTrackIndex={currentTrackIndex}
-						tracks={playlist.tracks}
-						isInfinite={isInfinite}
-						setIsInfinite={setIsInfinite}
-					/>
+                    
 				</section>
-			</section>
-
-			{/* <PlayListRoster
-				playlist={playlist}
-				currentTrackIndex={currentTrackIndex}
-				setCurrentTrackIndex={setCurrentTrackIndex}
-				isPlaying={isPlaying}
-				setIsPlaying={setIsPlaying}
-				audioEl={audioEl}
-			 /> */}
+			</div>
 		</>
 	);
 };
 
-export default Player;
+export default MiniPlayer;

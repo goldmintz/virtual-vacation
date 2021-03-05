@@ -14,10 +14,6 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	font-size: 16px;
 }
-::-webkit-scrollbar {
-	height: 0; /* Remove scrollbar space */
-	background: transparent; /* Optional: just make scrollbar invisible */
-}
 
 img {
 	width: 100%;
@@ -27,28 +23,52 @@ img {
 .app-wrapper {
 	display: flex;
 	flex-direction: column;
-	padding: 1rem;
 	height: 100vh;
-	align-items: center;
-	justify-content: center;
 }
 
-/* Top Row - Player */
-.player-wrapper {
-	display: flex;
-	margin-bottom: 1rem;
-	flex: 1 1 auto;
+header {
+	/* display: flex; */
+	width: 100%;
+	padding: 1.5em 3em;
+	background-color: transparent;
 }
 
-.player {
+.full-screen-wrapper {
 	display: flex;
-	flex: 2;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	padding: 1rem 2rem;
-	font-size: 1rem;
+	height: 100vh;
+}
+
+.album-bg {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	/* align-items: center;
+	justify-content: center; */
+}
+
+.mini-player-wrapper {
+	position: absolute;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 100%;
+}
+
+.mini-player-wrapper .progress-bar {
+	height: 1em;
+	background-color: grey;
+	width: 100%;
+	opacity: 50%;
+}
+
+.mini-player-wrapper #progress-fill {
+	display: block;
+	height: 100%;
+	width: 30%;
+	background-color: black;
+	border-radius: 20px;
 }
 
 .player .albumArt {
@@ -81,22 +101,22 @@ img {
 	font-size: 0.95rem;
 }
 
-.progress-bar-wrapper {
+/* .progress-bar-wrapper {
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
 	margin-bottom: 0.5rem;
 	padding: 0rem 2rem;
-}
+} */
 
-.progress-bar {
+/* .progress-bar {
 	height: 0.5rem;
 	background-color: grey;
 	width: 80%;
 	margin: 0rem 1rem;
 	opacity: 20%;
 	border-radius: 20px;
-}
+} */
 
 #progress-fill {
 	display: block;
