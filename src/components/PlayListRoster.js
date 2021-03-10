@@ -1,46 +1,31 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const PlayListRoster = ({
-	playlist,
 	setCurrentTrackIndex,
-	currentTrackIndex,
-	isPlaying,
 	setIsPlaying,
-	audioEl,
 }) => {
-	//on click or is current song, apply the active class
-	//don't
-	//define this outside of the render because audioEl loads initially as null
-	// const addCurrentTrackStyle = (i) => {
-	// 	if (
-	// 		// i === currentTrackIndex &&
-	// 		audioEl.current != null &&
-	// 		(isPlaying || audioEl.current.paused)
-	// 	) {
-	// 		return 'current-track';
-	// 	} else {
-	// 		return '';
-	// 	}
-	// };
+	const land = useSelector((state) => state.player.land);
+	const trackList = useSelector((state) => state.player.tracks);
+	const currentTrackIndex = useSelector(
+		(state) => state.player.currentTrackIndex,
+	);
 
+	const { image, name, summary } = land;
 	return (
 		<div className='playlist-roster'>
 			<div className='album-summary'>
-				<img
-					id='playlist-thumbnail'
-					src={playlist.land.image}
-					alt={playlist.land.image}
-				/>
+				<img id='playlist-thumbnail' src={image} alt={name} />
 				<div id='land-tagline'>
 					<div style={{ marginBottom: '.25rem' }}>
-						<strong>{playlist.land.name}</strong>
+						<strong>{name}</strong>
 					</div>
-					{playlist.land.summary}
+					{summary}
 				</div>
 			</div>
 
 			<div className='tracklist-wrapper'>
-				{playlist.tracks.map((track, i) => (
+				{trackList.map((track, i) => (
 					<div
 						className={
 							'track-listing ' +

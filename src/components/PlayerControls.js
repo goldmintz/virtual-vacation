@@ -1,20 +1,22 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { INFINITE_PLAY, PLAY_TRACK } from '../constants/types';
+import { nextTrack } from '../actions/playerActions';
 
-const PlayerControls = ({
-	isPlaying,
-	setIsPlaying,
-	advanceTrack,
-	currentTrackIndex,
-	tracks,
-	isInfinite,
-	setIsInfinite,
-}) => {
+const PlayerControls = ({ advanceTrack }) => {
+	const dispatch = useDispatch();
+
+	//Access global state
+	const isPlaying = useSelector((state) => state.player.isPlaying);
+	const currentTrack = useSelector((state) => state.player.currentTrackIndex);
+	const trackList = useSelector((state) => state.player.tracks);
+
 	return (
 		<div className='player-controls'>
 			<div className='secondary-controls'>
 				<button
 					className='controls-btn infinite-btn'
-					onClick={() => setIsInfinite(true)}>
+					onClick={() => dispatch({ type: INFINITE_PLAY })}>
 					<i className='fas fa-infinity'></i>
 				</button>
 				<button className='controls-btn shuffle-btn'>
@@ -25,7 +27,7 @@ const PlayerControls = ({
 			<div className='main-controls'>
 				<button
 					className='controls-btn back-btn'
-					disabled={currentTrackIndex === 0}
+					disabled={currentTrack === 0}
 					onClick={() => {
 						advanceTrack(false);
 					}}>
@@ -33,14 +35,14 @@ const PlayerControls = ({
 				</button>
 				<button
 					className='controls-btn play-btn'
-					onClick={() => setIsPlaying(!isPlaying)}>
+					onClick={() => dispatch({ type: PLAY_TRACK })}>
 					<i className={`fas fa-${isPlaying ? 'pause' : 'play'}`}></i>
 				</button>
 				<button
 					className='controls-btn next-btn'
-					disabled={currentTrackIndex === tracks.length - 1}
+					disabled={currentTrack === trackList.length - 1}
 					onClick={() => {
-						advanceTrack(true);
+						dispatch(nextTrack(true));
 					}}>
 					<i className='fas fa-forward' />
 				</button>

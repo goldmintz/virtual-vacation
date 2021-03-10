@@ -1,25 +1,27 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import PlayerControls from './PlayerControls';
 import PlayListRoster from './PlayListRoster';
 
-const Player = ({
-	playlist,
-	currentTrackIndex,
-	setCurrentTrackIndex,
-	isPlaying,
-	setIsPlaying,
-}) => {
+const Player = ({ currentTrackIndex, setCurrentTrackIndex, setIsPlaying }) => {
+	const dispatch = useDispatch;
+	const land = useSelector((state) => state.player.land);
+	const trackList = useSelector((state) => state.player.tracks);
+	const currentTrack = useSelector((state) => state.player.currentTrackIndex);
+	const isInfinite = useSelector((state) => state.player.isInfinite);
+	const isPlaying = useSelector((state) => state.player.isPlaying);
+
+	//Destructure state for easy reference
+	const { image, name } = land;
+
 	//manage state for track duration, playthrough (normal, random, infinite) and play timer countdown
 	const [trackDuration, setTrackDuration] = useState(0);
 	const [currentTime, setCurrentTime] = useState(0);
 
-	//Set whether playlist ends on last song (normal) or loops (infinite)
-	const [isInfinite, setIsInfinite] = useState(false);
-
 	const handleNextTrack = () => {
 		const lastTrack =
-			currentTrackIndex === playlist.tracks.length - 1 &&
-			currentTrackIndex !== 0;
+			currentTrackIndex === trackList.length - 1 && currentTrackIndex !== 0;
 
 		//if it's not the last track, move on to next index
 		if (!lastTrack) {
@@ -73,7 +75,7 @@ const Player = ({
 			setCurrentTrackIndex(() => {
 				//check if track is last on list, if last set index to 0 to restart playlist
 				let nextIndex =
-					currentTrackIndex === playlist.tracks.length - 1
+					currentTrackIndex === trackList.length - 1
 						? 0
 						: currentTrackIndex + 1;
 
@@ -94,26 +96,16 @@ const Player = ({
 	return (
 		<>
 			<section className='player'>
-				<img
-					className='albumArt'
-					src={playlist.land.image}
-					alt={playlist.Land}
-				/>
+				<img className='albumArt' src={image} alt={name} />
 
 				<section className='control-center'>
 					<div className='track-details'>
-						<div id='track-name'>
-							{' '}
-							{playlist.tracks[currentTrackIndex].title}
-						</div>
-						<div id='track-land'>
-							{' '}
-							{playlist.tracks[currentTrackIndex].land}
-						</div>
+						<div id='track-name'> {trackList[currentTrackIndex].title}</div>
+						<div id='track-land'> {trackList[currentTrackIndex].land}</div>
 					</div>
 
 					<audio
-						src={playlist.tracks[currentTrackIndex].src}
+						src={trackList[currentTrackIndex].src}
 						ref={audioEl}
 						onLoadedMetadata={() => {
 							setTrackDuration(audioEl.current.duration);
@@ -138,15 +130,12 @@ const Player = ({
 						setIsPlaying={setIsPlaying}
 						advanceTrack={advanceTrack}
 						currentTrackIndex={currentTrackIndex}
-						tracks={playlist.tracks}
-						isInfinite={isInfinite}
-						setIsInfinite={setIsInfinite}
+						tracks={trackList}
 					/>
 				</section>
 			</section>
 
 			<PlayListRoster
-				playlist={playlist}
 				currentTrackIndex={currentTrackIndex}
 				setCurrentTrackIndex={setCurrentTrackIndex}
 				isPlaying={isPlaying}
