@@ -4,6 +4,8 @@ import {
 	INFINITE_PLAY,
 	PLAY_TRACK,
 	SET_TRACK,
+	SET_TRACK_DURATION,
+	SET_TRACK_CURRENT_TIME,
 } from '../constants/types.js';
 
 const initialState = {
@@ -11,6 +13,7 @@ const initialState = {
 	isInfinite: false, //Set whether playlist ends on last song (normal) or loops (infinite)
 	currentTrackIndex: 0,
 	lands: [],
+	//TODO: Update to fetch random land on initial load
 	land: {
 		name: 'Enchanted Tiki Room',
 		image: './images/tiki.jpg',
@@ -50,6 +53,17 @@ export const playerReducer = (state = initialState, action) => {
 				...state,
 				currentTrackIndex: action.payload,
 			};
+		case SET_TRACK_DURATION:
+			return {
+				...state,
+				trackDuration: action.payload,
+			};
+		case SET_TRACK_CURRENT_TIME:
+			return {
+				...state,
+				currentTime: action.payload,
+			};
+
 		case INFINITE_PLAY:
 			return {
 				...state,

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { INFINITE_PLAY, PLAY_TRACK } from '../constants/types';
-import { nextTrack } from '../actions/playerActions';
+import { advanceTrack } from '../actions/playerActions';
 
-const PlayerControls = ({ advanceTrack }) => {
+const PlayerControls = () => {
 	const dispatch = useDispatch();
 
 	//Access global state
@@ -29,7 +29,7 @@ const PlayerControls = ({ advanceTrack }) => {
 					className='controls-btn back-btn'
 					disabled={currentTrack === 0}
 					onClick={() => {
-						advanceTrack(false);
+						dispatch(advanceTrack(false));
 					}}>
 					<i className='fas fa-backward' />
 				</button>
@@ -42,7 +42,7 @@ const PlayerControls = ({ advanceTrack }) => {
 					className='controls-btn next-btn'
 					disabled={currentTrack === trackList.length - 1}
 					onClick={() => {
-						dispatch(nextTrack(true));
+						dispatch(advanceTrack(true));
 					}}>
 					<i className='fas fa-forward' />
 				</button>

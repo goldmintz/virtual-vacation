@@ -1,9 +1,9 @@
 export const tracks = [
-	{
-		title: 'Polynesian Resort - Complete Area Music',
-		src: './audio/Polynesian Resort - Complete Area Music.mp3',
-		land: 'Enchanted Tiki Room',
-	},
+	// {
+	// 	title: 'Polynesian Resort - Complete Area Music',
+	// 	src: './audio/Polynesian Resort - Complete Area Music.mp3',
+	// 	land: 'Enchanted Tiki Room',
+	// },
 
 	{
 		title: 'Disneyland Welcome',
@@ -24,11 +24,11 @@ export const tracks = [
 	{
 		title: 'Crowing',
 		src: './audio/Test_Crow.mp3',
-		land: 'Testy McTest Face',
+		land: 'Enchanted Tiki Room',
 	},
 	{
 		title: 'Magic Wand',
 		src: './audio/Test_Wand.mp3',
-		land: 'Testy McTest Face',
+		land: 'Enchanted Tiki Room',
 	},
 ];

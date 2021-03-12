@@ -3,6 +3,8 @@ import {
 	SET_PLAYLIST,
 	PLAY_TRACK,
 	SET_TRACK,
+	SET_TRACK_DURATION,
+	SET_TRACK_CURRENT_TIME,
 } from '../constants/types.js';
 
 // import tracklist array
@@ -28,58 +30,85 @@ export const getLand = (land) => (dispatch) => {
 	});
 };
 
-export const nextTrack = (fwd = true) => (dispatch, getState) => {
+export const advanceTrack = (fwd = true) => (dispatch, getState) => {
 	const state = getState();
 
-	let nextIndex =
-		state.player.currentTrackIndex === state.player.tracks.length - 1
-			? 0
-			: state.player.currentTrackIndex + 1;
+	const { currentTrackIndex, tracks } = state.player;
+	const nextIndex =
+		currentTrackIndex === tracks.length - 1 ? 0 : currentTrackIndex + 1;
 
-	console.log(nextIndex);
-	dispatch({
-		type: SET_TRACK,
-		payload: nextIndex,
-	});
+	const prevIndex = currentTrackIndex === 0 ? 0 : currentTrackIndex - 1;
 
+	//move through the track list (fwd, back) using controls
 	// if user clicks forward button
-	// if (fwd) {
-	// 	let nextIndex =
-	// 		state.player.currentTrackIndex === state.player.tracks.length - 1
-	// 			? 0
-	// 			: state.player.currentTrackIndex + 1;
+	if (fwd) {
+		dispatch({
+			type: SET_TRACK,
+			payload: nextIndex,
+		});
 
-	// 	console.log(nextIndex);
-	// 	dispatch({
-	// 		type: SET_CURRENT_TRACK,
-	// 		payload: nextIndex,
-	// 	});
-	// 	setCurrentTrackIndex(() => {
-	// 		//check if track is last on list, if last set index to 0 to restart playlist
-	// 		let nextIndex =
-	// 			currentTrackIndex === playlist.tracks.length - 1
-	// 				? 0
-	// 				: currentTrackIndex + 1;
-
-	// 		return nextIndex;
-	// 	});
-	// 	//if user clicks back button, just go backwards or reset to 0 if first track
-	// } else {
-	// 	setCurrentTrackIndex(() => {
-	// 		let prevIndex = currentTrackIndex === 0 ? 0 : currentTrackIndex - 1;
-
-	// 		return prevIndex;
-	// 	});
-	// }
+		//if user clicks back button, just go backwards or reset to 0 if first track
+	} else {
+		dispatch({
+			type: SET_TRACK,
+			payload: prevIndex,
+		});
+	}
 	dispatch({
 		type: PLAY_TRACK,
 	});
-	// }
 };
 
-export const setTrack = (index) => (dispatch) => {
+export const resetPlayList = () => (dispatch) => {
 	dispatch({
 		type: SET_TRACK,
-		payload: index,
+		payload: 0,
+	});
+};
+
+export const setCurrentTrackIndex = () => (dispatch, getState) => {
+	const state = getState();
+
+	const { currentTrackIndex, tracks, isInfinite } = state.player;
+
+	//check if current track is the last in the playlist
+	let lastTrack =
+		currentTrackIndex === tracks.length - 1 && currentTrackIndex !== 0;
+
+	//if it's not the last track, move on to next index
+	if (!lastTrack) {
+		dispatch({
+			type: SET_TRACK,
+			payload: currentTrackIndex + 1,
+		});
+	}
+	//if it is the last track and playthru is normal, end on last song
+	if (lastTrack && !isInfinite) {
+		dispatch({
+			// return setIsPlaying(!isPlaying);
+			type: PLAY_TRACK,
+		});
+	}
+	//if it is the last track, but playthru is set to infinite, start over again
+	if (lastTrack && isInfinite) {
+		dispatch({
+			type: SET_TRACK,
+			payload: 0,
+		});
+	}
+};
+
+export const setCurrentTrackDuration = (duration) => (dispatch) => {
+	console.log(duration);
+	// dispatch({
+	// 	type: SET_TRACK_DURATION,
+	// 	payload: duration,
+	// });
+};
+
+export const setTrackCurrentTime = (currentTime) => (dispatch) => {
+	dispatch({
+		type: SET_TRACK_CURRENT_TIME,
+		payload: currentTime,
 	});
 };

@@ -1,14 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { getLand, setTrack } from '../actions/playerActions';
+import { getLand, resetPlayList } from '../actions/playerActions';
 
-const PlaylistCard = ({
-	land,
-	// handleSetLand,
-	// setIsPlaying,
-	// setCurrentTrackIndex,
-}) => {
+const PlaylistCard = ({ land }) => {
 	const dispatch = useDispatch();
 
 	return (
@@ -18,8 +13,7 @@ const PlaylistCard = ({
 			alt={land.image}
 			onClick={() => {
 				// setIsPlaying(false);
-
-				dispatch(setTrack(0));
+				dispatch(resetPlayList());
 				dispatch(getLand(land));
 			}}
 		/>
