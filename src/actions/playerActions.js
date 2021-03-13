@@ -54,9 +54,6 @@ export const advanceTrack = (fwd = true) => (dispatch, getState) => {
 			payload: prevIndex,
 		});
 	}
-	dispatch({
-		type: PLAY_TRACK,
-	});
 };
 
 export const resetPlayList = () => (dispatch) => {
@@ -99,11 +96,10 @@ export const setCurrentTrackIndex = () => (dispatch, getState) => {
 };
 
 export const setCurrentTrackDuration = (duration) => (dispatch) => {
-	console.log(duration);
-	// dispatch({
-	// 	type: SET_TRACK_DURATION,
-	// 	payload: duration,
-	// });
+	dispatch({
+		type: SET_TRACK_DURATION,
+		payload: duration,
+	});
 };
 
 export const setTrackCurrentTime = (currentTime) => (dispatch) => {

@@ -3,6 +3,8 @@ import {
 	SET_PLAYLIST,
 	INFINITE_PLAY,
 	PLAY_TRACK,
+	PAUSE_TRACK,
+	SET_AUDIO,
 	SET_TRACK,
 	SET_TRACK_DURATION,
 	SET_TRACK_CURRENT_TIME,
@@ -21,13 +23,22 @@ const initialState = {
 	},
 	tracks: [
 		{
+			title: 'Crowing',
+			src: './audio/Test_Crow.mp3',
+			land: 'Enchanted Tiki Room',
+		},
+		{
+			title: 'Magic Wand',
+			src: './audio/Test_Wand.mp3',
+			land: 'Enchanted Tiki Room',
+		},
+		{
 			title: 'Polynesian Resort - Complete Area Music',
 			src: './audio/Polynesian Resort - Complete Area Music.mp3',
 			land: 'Enchanted Tiki Room',
 		},
 	],
-	trackDuration: 0,
-	currentTime: 0,
+	audioEl: null,
 };
 
 export const playerReducer = (state = initialState, action) => {
@@ -46,7 +57,17 @@ export const playerReducer = (state = initialState, action) => {
 		case PLAY_TRACK:
 			return {
 				...state,
-				isPlaying: !state.isPlaying,
+				isPlaying: true,
+			};
+		case PAUSE_TRACK:
+			return {
+				...state,
+				isPlaying: true,
+			};
+		case SET_AUDIO:
+			return {
+				...state,
+				audioEl: action.payload,
 			};
 		case SET_TRACK:
 			return {
