@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { getLand, resetPlayList } from '../actions/playerActions';
+import { setTrackList, resetPlayList } from '../actions/playerActions';
 import { PAUSE_TRACK } from '../constants/types';
 
 const PlaylistCard = ({ land }) => {
@@ -15,7 +15,7 @@ const PlaylistCard = ({ land }) => {
 			onClick={() => {
 				dispatch({ type: PAUSE_TRACK });
 				dispatch(resetPlayList());
-				dispatch(getLand(land));
+				dispatch(setTrackList(land));
 			}}
 		/>
 	);

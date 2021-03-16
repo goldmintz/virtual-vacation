@@ -20,14 +20,22 @@ export const setLands = () => (dispatch) => {
 };
 
 //Get tracks based on land selected
-export const getLand = (land) => (dispatch) => {
-	//Find tracks based on land passed
-	let filteredTracks = tracks.filter((track) => track.land === land.name);
+export const setTrackList = (land) => (dispatch, getState) => {
+	const state = getState();
+	const { isShuffle } = state.player;
+
+	const trackList = isShuffle
+		? tracks
+				.filter((track) => track.land === land.name)
+				.sort(() => Math.random() - 0.5)
+		: tracks.filter((track) => track.land === land.name); //if shuffle is not selected, just find the land's tracks
 
 	dispatch({
 		type: SET_PLAYLIST,
-		payload: { land, filteredTracks },
+		payload: { land, trackList },
 	});
+
+	console.log(trackList);
 };
 
 export const advanceTrack = (fwd = true) => (dispatch, getState) => {

@@ -1,7 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { INFINITE_PLAY, PLAY_TRACK, PAUSE_TRACK } from '../constants/types';
-import { advanceTrack } from '../actions/playerActions';
+import {
+	INFINITE_PLAY,
+	SHUFFLE_PLAY,
+	PLAY_TRACK,
+	PAUSE_TRACK,
+} from '../constants/types';
+import { advanceTrack, setTrackList } from '../actions/playerActions';
 
 const PlayerControls = () => {
 	const dispatch = useDispatch();
@@ -10,6 +15,7 @@ const PlayerControls = () => {
 	const isPlaying = useSelector((state) => state.player.isPlaying);
 	const currentTrack = useSelector((state) => state.player.currentTrackIndex);
 	const trackList = useSelector((state) => state.player.tracks);
+	const land = useSelector((state) => state.player.land);
 
 	return (
 		<div className='player-controls'>
@@ -19,7 +25,12 @@ const PlayerControls = () => {
 					onClick={() => dispatch({ type: INFINITE_PLAY })}>
 					<i className='fas fa-infinity'></i>
 				</button>
-				<button className='controls-btn shuffle-btn'>
+				<button
+					className='controls-btn shuffle-btn'
+					onClick={() => {
+						dispatch({ type: SHUFFLE_PLAY }); //set playthru to shuffle
+						dispatch(setTrackList(land)); // dispatch(setTrackList()); //update playlist to shuffled array
+					}}>
 					<i className='fas fa-random'></i>
 				</button>
 			</div>

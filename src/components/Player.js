@@ -55,8 +55,8 @@ const Player = ({ setIsPlaying }) => {
 						<div id='track-name'> {tracks[currentTrackIndex].title}</div>
 						<div id='track-land'> {tracks[currentTrackIndex].land}</div>
 					</div>
-					<PlayerControls />
 					<ProgressBar />
+					<PlayerControls />
 				</section>
 			</section>
 

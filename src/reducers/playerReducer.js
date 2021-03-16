@@ -29,11 +29,16 @@ const initialState = {
 			src: './audio/Test_Wand.mp3',
 			land: 'Enchanted Tiki Room',
 		},
-		// {
-		// 	title: 'Polynesian Resort - Complete Area Music',
-		// 	src: './audio/Polynesian Resort - Complete Area Music.mp3',
-		// 	land: 'Enchanted Tiki Room',
-		// },
+		{
+			title: 'Jingle',
+			src: './audio/Test_Jingle.mp3',
+			land: 'Enchanted Tiki Room',
+		},
+		{
+			title: 'Splash',
+			src: './audio/Test_Splash.mp3',
+			land: 'Enchanted Tiki Room',
+		},
 	],
 	isPlaying: false,
 	isInfinite: false, //Set whether playlist ends on last song (normal) or loops (infinite)
@@ -54,7 +59,7 @@ export const playerReducer = (state = initialState, action) => {
 			return {
 				...state,
 				land: action.payload.land,
-				tracks: action.payload.filteredTracks,
+				tracks: action.payload.trackList,
 			};
 		case PLAY_TRACK:
 			return {

@@ -34,7 +34,6 @@ const PlayListRoster = ({ setIsPlaying }) => {
 						key={i}
 						onClick={() => {
 							dispatch(setTrackFromPlayList(i));
-							setIsPlaying(true);
 						}}>
 						<span style={{ marginRight: '.5rem' }}>{i + 1}</span> {track.title}
 					</div>
