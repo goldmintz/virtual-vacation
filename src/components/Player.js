@@ -61,8 +61,7 @@ const Player = ({ setIsPlaying }) => {
 			</section>
 
 			<PlayListRoster
-			//Have to pass audioEl as props because it can't get sent as an object to the store
-				audioEl={audioEl}
+				audioEl={audioEl} //Have to pass audioEl as props because it can't get sent as an object to the store
 			/>
 		</>
 	);

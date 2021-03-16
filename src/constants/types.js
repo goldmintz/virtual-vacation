@@ -2,8 +2,7 @@
 export const SET_LANDS = 'SET_LANDS';
 export const SET_PLAYLIST = 'SET_PLAYLIST';
 
-// TRACK
-export const SET_AUDIO = 'SET_AUDIO';
+// TRACKS
 export const SET_TRACK = 'SET_TRACK';
 export const SET_TRACK_DURATION = 'SET_TRACK_DURATION';
 export const SET_TRACK_CURRENT_TIME = 'SET_TRACK_CURRENT_TIME';

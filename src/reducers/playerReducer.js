@@ -2,18 +2,15 @@ import {
 	SET_LANDS,
 	SET_PLAYLIST,
 	INFINITE_PLAY,
+	SHUFFLE_PLAY,
 	PLAY_TRACK,
 	PAUSE_TRACK,
-	SET_AUDIO,
 	SET_TRACK,
 	SET_TRACK_DURATION,
 	SET_TRACK_CURRENT_TIME,
 } from '../constants/types.js';
 
 const initialState = {
-	isPlaying: false,
-	isInfinite: false, //Set whether playlist ends on last song (normal) or loops (infinite)
-	currentTrackIndex: 0,
 	lands: [],
 	//TODO: Update to fetch random land on initial load
 	land: {
@@ -32,12 +29,18 @@ const initialState = {
 			src: './audio/Test_Wand.mp3',
 			land: 'Enchanted Tiki Room',
 		},
-		{
-			title: 'Polynesian Resort - Complete Area Music',
-			src: './audio/Polynesian Resort - Complete Area Music.mp3',
-			land: 'Enchanted Tiki Room',
-		},
+		// {
+		// 	title: 'Polynesian Resort - Complete Area Music',
+		// 	src: './audio/Polynesian Resort - Complete Area Music.mp3',
+		// 	land: 'Enchanted Tiki Room',
+		// },
 	],
+	isPlaying: false,
+	isInfinite: false, //Set whether playlist ends on last song (normal) or loops (infinite)
+	isShuffle: false, //Set track order to be random instead of increment +1
+	currentTrackIndex: 0,
+	trackDuration: null,
+	currentTime: null,
 };
 
 export const playerReducer = (state = initialState, action) => {
@@ -63,11 +66,6 @@ export const playerReducer = (state = initialState, action) => {
 				...state,
 				isPlaying: false,
 			};
-		case SET_AUDIO:
-			return {
-				...state,
-				audioEl: action.payload,
-			};
 		case SET_TRACK:
 			return {
 				...state,
@@ -83,11 +81,15 @@ export const playerReducer = (state = initialState, action) => {
 				...state,
 				currentTime: action.payload,
 			};
-
 		case INFINITE_PLAY:
 			return {
 				...state,
 				isInfinite: !state.isInfinite,
+			};
+		case SHUFFLE_PLAY:
+			return {
+				...state,
+				isShuffle: !state.isShuffle,
 			};
 
 		default:
