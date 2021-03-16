@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setTrackFromPlayList} from '../actions/playerActions';
+import { setTrackFromPlayList } from '../actions/playerActions';
 
 const PlayListRoster = ({ setIsPlaying }) => {
 	const dispatch = useDispatch();

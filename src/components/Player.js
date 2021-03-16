@@ -61,10 +61,7 @@ const Player = ({ setIsPlaying }) => {
 			</section>
 
 			<PlayListRoster
-				currentTrackIndex={currentTrackIndex}
-				setCurrentTrackIndex={setCurrentTrackIndex}
-				isPlaying={isPlaying}
-				setIsPlaying={setIsPlaying}
+			//Have to pass audioEl as props because it can't get sent as an object to the store
 				audioEl={audioEl}
 			/>
 		</>
