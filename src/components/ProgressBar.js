@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const ProgressBar = () => {
-	//manage local state for track duration, playthrough (normal, random, infinite) and play timer countdown
-	const [trackDuration, setTrackDuration] = useState(0);
-	const [currentTime, setCurrentTime] = useState(0);
+	//manage local state for percentage (currentTime/trackDuration)
 	const [percentage, setPercentage] = useState(0);
+
+	const trackDuration = useSelector((state) => state.player.trackDuration);
+	const currentTime = useSelector((state) => state.player.currentTime);
 
 	// calculate % song complete for progress bar
 	const progressPerc = (currentTime / trackDuration) * 100;
@@ -27,7 +29,6 @@ const ProgressBar = () => {
 	};
 
 	useEffect(() => {
-		//check that audio should/shouldnt be playing
 		//update perc as song plays
 		setPercentage(progressPerc);
 	}, [progressPerc]);

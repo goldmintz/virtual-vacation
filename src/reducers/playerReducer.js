@@ -38,7 +38,6 @@ const initialState = {
 			land: 'Enchanted Tiki Room',
 		},
 	],
-	audioEl: null,
 };
 
 export const playerReducer = (state = initialState, action) => {
@@ -62,7 +61,7 @@ export const playerReducer = (state = initialState, action) => {
 		case PAUSE_TRACK:
 			return {
 				...state,
-				isPlaying: true,
+				isPlaying: false,
 			};
 		case SET_AUDIO:
 			return {

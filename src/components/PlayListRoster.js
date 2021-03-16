@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-const PlayListRoster = ({
-	setCurrentTrackIndex,
-	setIsPlaying,
-}) => {
+import { setTrackFromPlayList} from '../actions/playerActions';
+
+const PlayListRoster = ({ setIsPlaying }) => {
+	const dispatch = useDispatch();
 	const land = useSelector((state) => state.player.land);
 	const trackList = useSelector((state) => state.player.tracks);
 	const currentTrackIndex = useSelector(
@@ -33,7 +33,7 @@ const PlayListRoster = ({
 						}
 						key={i}
 						onClick={() => {
-							setCurrentTrackIndex(i);
+							dispatch(setTrackFromPlayList(i));
 							setIsPlaying(true);
 						}}>
 						<span style={{ marginRight: '.5rem' }}>{i + 1}</span> {track.title}

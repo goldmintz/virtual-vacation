@@ -1,25 +1,25 @@
 import {
 	SET_LANDS,
 	SET_PLAYLIST,
-	PLAY_TRACK,
 	SET_TRACK,
 	SET_TRACK_DURATION,
 	SET_TRACK_CURRENT_TIME,
+	PAUSE_TRACK,
 } from '../constants/types.js';
 
 // import tracklist array
 import { lands } from '../lands';
 import { tracks } from '../tracks';
 
+// Fetch lands/playlists
 export const setLands = () => (dispatch) => {
-	//Find tracks based on land passed
-
 	dispatch({
 		type: SET_LANDS,
 		payload: lands,
 	});
 };
 
+//Get tracks based on land selected
 export const getLand = (land) => (dispatch) => {
 	//Find tracks based on land passed
 	let filteredTracks = tracks.filter((track) => track.land === land.name);
@@ -47,7 +47,7 @@ export const advanceTrack = (fwd = true) => (dispatch, getState) => {
 			payload: nextIndex,
 		});
 
-		//if user clicks back button, just go backwards or reset to 0 if first track
+		//if user clicks back button, just go backwards (if first track, back button is disabled in UI)
 	} else {
 		dispatch({
 			type: SET_TRACK,
@@ -56,10 +56,20 @@ export const advanceTrack = (fwd = true) => (dispatch, getState) => {
 	}
 };
 
+//Restart playlist from first track
+//Used when new land is loaded (so newly loaded tracklist does not start at previously played track number)
 export const resetPlayList = () => (dispatch) => {
 	dispatch({
 		type: SET_TRACK,
 		payload: 0,
+	});
+};
+
+//Set the track index clicked from playlist roster
+export const setTrackFromPlayList = (i) => (dispatch) => {
+	dispatch({
+		type: SET_TRACK,
+		payload: i,
 	});
 };
 
@@ -83,7 +93,7 @@ export const setCurrentTrackIndex = () => (dispatch, getState) => {
 	if (lastTrack && !isInfinite) {
 		dispatch({
 			// return setIsPlaying(!isPlaying);
-			type: PLAY_TRACK,
+			type: PAUSE_TRACK,
 		});
 	}
 	//if it is the last track, but playthru is set to infinite, start over again

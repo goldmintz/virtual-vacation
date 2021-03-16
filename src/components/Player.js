@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
 	setCurrentTrackDuration,
 	setTrackCurrentTime,
-	advanceTrack,
+	setCurrentTrackIndex,
 } from '../actions/playerActions';
 
 import PlayerControls from './PlayerControls';
+import ProgressBar from './ProgressBar';
 import PlayListRoster from './PlayListRoster';
 
-const Player = ({ setCurrentTrackIndex, setIsPlaying }) => {
+const Player = ({ setIsPlaying }) => {
 	const dispatch = useDispatch();
 
 	//access global state
@@ -44,7 +45,7 @@ const Player = ({ setCurrentTrackIndex, setIsPlaying }) => {
 					// on update, retrieve currentTime from ref and set time in globalstate
 					dispatch(setTrackCurrentTime(audioEl.current.currentTime))
 				}
-				onEnded={() => dispatch(advanceTrack())}
+				onEnded={() => dispatch(setCurrentTrackIndex())}
 			/>
 			<section className='player'>
 				<img className='albumArt' src={image} alt={name} />
@@ -55,6 +56,7 @@ const Player = ({ setCurrentTrackIndex, setIsPlaying }) => {
 						<div id='track-land'> {tracks[currentTrackIndex].land}</div>
 					</div>
 					<PlayerControls />
+					<ProgressBar />
 				</section>
 			</section>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { INFINITE_PLAY, PLAY_TRACK } from '../constants/types';
+import { INFINITE_PLAY, PLAY_TRACK, PAUSE_TRACK } from '../constants/types';
 import { advanceTrack } from '../actions/playerActions';
 
 const PlayerControls = () => {
@@ -33,11 +33,20 @@ const PlayerControls = () => {
 					}}>
 					<i className='fas fa-backward' />
 				</button>
-				<button
-					className='controls-btn play-btn'
-					onClick={() => dispatch({ type: PLAY_TRACK })}>
-					<i className={`fas fa-${isPlaying ? 'pause' : 'play'}`}></i>
-				</button>
+				{isPlaying ? (
+					<button
+						className='controls-btn play-btn'
+						onClick={() => dispatch({ type: PAUSE_TRACK })}>
+						<i className={'fas fa-pause'}></i>
+					</button>
+				) : (
+					<button
+						className='controls-btn play-btn'
+						onClick={() => dispatch({ type: PLAY_TRACK })}>
+						<i className={'fas fa-play'}></i>
+					</button>
+				)}
+
 				<button
 					className='controls-btn next-btn'
 					disabled={currentTrack === trackList.length - 1}

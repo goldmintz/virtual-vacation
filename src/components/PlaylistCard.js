@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { getLand, resetPlayList } from '../actions/playerActions';
+import { PAUSE_TRACK } from '../constants/types';
 
 const PlaylistCard = ({ land }) => {
 	const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const PlaylistCard = ({ land }) => {
 			src={land.image}
 			alt={land.image}
 			onClick={() => {
-				// setIsPlaying(false);
+				dispatch({ type: PAUSE_TRACK });
 				dispatch(resetPlayList());
 				dispatch(getLand(land));
 			}}
