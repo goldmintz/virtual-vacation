@@ -9,11 +9,22 @@ const reducer = combineReducers({
 	player: playerReducer,
 });
 
-// const initialState = {};
+//
+const favoritesPlayListFromLclStorage = localStorage.getItem(
+	'favoritesPlayList',
+)
+	? JSON.parse(localStorage.getItem('favoritesPlayList'))
+	: [];
+
+const initialState = {
+	player: {
+		favoritesPlayList: favoritesPlayListFromLclStorage,
+	},
+};
 
 const store = createStore(
 	reducer,
-	// initialState,
+	initialState,
 	composeWithDevTools(applyMiddleware(thunk)),
 );
 

@@ -8,6 +8,7 @@ import {
 	SET_TRACK,
 	SET_TRACK_DURATION,
 	SET_TRACK_CURRENT_TIME,
+	ADD_TO_FAVORITES,
 } from '../constants/types.js';
 
 const initialState = {
@@ -46,6 +47,7 @@ const initialState = {
 	currentTrackIndex: 0,
 	trackDuration: null,
 	currentTime: null,
+	favoritesPlayList: [],
 };
 
 export const playerReducer = (state = initialState, action) => {
@@ -95,6 +97,12 @@ export const playerReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isShuffle: !state.isShuffle,
+			};
+
+		case ADD_TO_FAVORITES:
+			return {
+				...state,
+				favoritesPlayList: [...state.favoritesPlayList, action.payload],
 			};
 
 		default:
