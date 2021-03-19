@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { setTrackList, resetPlayList } from '../actions/playerActions';
+import { setTrackList, resetPlayList } from '../actions/trackListActions';
 import { PAUSE_TRACK } from '../constants/types';
 
 const PlaylistCard = ({ land }) => {

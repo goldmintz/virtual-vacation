@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLands } from './actions/playerActions';
+import { setLands } from './actions/trackListActions';
 import './App.css';
 
 // import children
@@ -9,20 +9,18 @@ import Player from './components/Player';
 
 const App = () => {
 	const dispatch = useDispatch();
-	const lands = useSelector((state) => state.player.lands);
+	const lands = useSelector((state) => state.tracks.lands);
 
 	useEffect(() => {
+		// dispatch(loadLocalFavorites());
 		//set lands on load
 		dispatch(setLands());
 	}, [dispatch]);
 
-	//manage play/pause/load
-	const [isPlaying, setIsPlaying] = useState(false);
-	
 	return (
 		<div className='app-wrapper'>
 			<section className='player-wrapper'>
-				<Player isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
+				<Player />
 			</section>
 
 			<section className='albums-wrapper'>

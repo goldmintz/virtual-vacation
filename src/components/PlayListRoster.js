@@ -4,18 +4,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
 	setTrackFromPlayList,
 	addToFavoritesList,
-} from '../actions/playerActions';
+} from '../actions/trackListActions';
 
 const PlayListRoster = () => {
 	const dispatch = useDispatch();
-	const land = useSelector((state) => state.player.land);
-	const trackList = useSelector((state) => state.player.tracks);
-	const favorites = useSelector((state) => state.player.favoritesPlayList);
+	const land = useSelector((state) => state.tracks.land);
+	const trackList = useSelector((state) => state.tracks.trackList);
+	const favorites = useSelector((state) => state.favoritesPlayList);
 	const currentTrackIndex = useSelector(
-		(state) => state.player.currentTrackIndex,
+		(state) => state.tracks.currentTrackIndex,
 	);
-
-	console.log(favorites);
 
 	const { image, name, summary } = land;
 	return (
@@ -43,14 +41,10 @@ const PlayListRoster = () => {
 						}}>
 						<span style={{ marginRight: '.5rem' }}>{i + 1}</span> {track.title}
 						<span style={{ marginLeft: '.5rem' }}>
-							{favorites.some((t) => t.title === track.title) ? (
-								<i
-									className='far fa-heart'
-									onClick={() => dispatch(addToFavoritesList(track))}
-								/>
-							) : (
-								<i className='fas fa-heart'></i>
-							)}
+							<i
+								className='fas fa-heart'
+								onClick={() => dispatch(addToFavoritesList(track))}
+							/>
 						</span>
 					</div>
 				))}

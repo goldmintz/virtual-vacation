@@ -3,23 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
 	setCurrentTrackDuration,
 	setTrackCurrentTime,
-	setCurrentTrackIndex,
 } from '../actions/playerActions';
+
+import { setCurrentTrackIndex } from '../actions/trackListActions';
 
 import PlayerControls from './PlayerControls';
 import ProgressBar from './ProgressBar';
 import PlayListRoster from './PlayListRoster';
 
-const Player = ({ setIsPlaying }) => {
+const Player = () => {
 	const dispatch = useDispatch();
 
 	//access global state
-	const land = useSelector((state) => state.player.land);
-	const tracks = useSelector((state) => state.player.tracks);
+	const land = useSelector((state) => state.tracks.land);
+	const trackList = useSelector((state) => state.tracks.trackList);
 	const isPlaying = useSelector((state) => state.player.isPlaying);
 
 	const currentTrackIndex = useSelector(
-		(state) => state.player.currentTrackIndex,
+		(state) => state.tracks.currentTrackIndex,
 	);
 
 	//Destructure land state for easy reference
@@ -36,7 +37,7 @@ const Player = ({ setIsPlaying }) => {
 	return (
 		<>
 			<audio
-				src={tracks[currentTrackIndex].src}
+				src={trackList[currentTrackIndex].src}
 				ref={audioEl}
 				onLoadedMetadata={() =>
 					dispatch(setCurrentTrackDuration(audioEl.current.duration))
@@ -52,8 +53,8 @@ const Player = ({ setIsPlaying }) => {
 
 				<section className='control-center'>
 					<div className='track-details'>
-						<div id='track-name'> {tracks[currentTrackIndex].title}</div>
-						<div id='track-land'> {tracks[currentTrackIndex].land}</div>
+						<div id='track-name'> {trackList[currentTrackIndex].title}</div>
+						<div id='track-land'> {trackList[currentTrackIndex].land}</div>
 					</div>
 					<ProgressBar />
 					<PlayerControls />

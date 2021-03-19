@@ -6,7 +6,8 @@ import {
 	PLAY_TRACK,
 	PAUSE_TRACK,
 } from '../constants/types';
-import { advanceTrack, setTrackList } from '../actions/playerActions';
+import { advanceTrack } from '../actions/playerActions';
+import { setTrackList } from '../actions/trackListActions';
 
 const PlayerControls = () => {
 	const dispatch = useDispatch();
@@ -14,8 +15,8 @@ const PlayerControls = () => {
 	//Access global state
 	const isPlaying = useSelector((state) => state.player.isPlaying);
 	const currentTrack = useSelector((state) => state.player.currentTrackIndex);
-	const trackList = useSelector((state) => state.player.tracks);
-	const land = useSelector((state) => state.player.land);
+	const trackList = useSelector((state) => state.tracks.trackList);
+	const land = useSelector((state) => state.tracks.land);
 
 	return (
 		<div className='player-controls'>

@@ -1,5 +1,7 @@
 import {
 	SET_LANDS,
+	SET_TRACK,
+	PAUSE_TRACK,
 	SET_PLAYLIST,
 	ADD_TO_FAVORITES,
 } from '../constants/types.js';
@@ -83,13 +85,17 @@ export const setCurrentTrackIndex = () => (dispatch, getState) => {
 };
 
 export const addToFavoritesList = (track) => (dispatch, getState) => {
-	console.log(track);
 	dispatch({
 		type: ADD_TO_FAVORITES,
-		payload: track,
+		payload: {
+			title: track.title,
+			src: track.src,
+			land: track.land,
+		},
 	});
+
 	localStorage.setItem(
 		'favoritesPlayList',
-		JSON.stringify(getState().player.favoritesPlayList),
+		JSON.stringify(getState().favoritesPlayList),
 	);
 };
