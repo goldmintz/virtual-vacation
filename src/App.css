@@ -182,12 +182,13 @@ button[disabled] {
 	border: none;
 	background-color: transparent;
 	margin-bottom: 0.3rem;
+	cursor: pointer;
 }
 
 /* TODO: Add transition for hover so it is not jumpy */
-.track-listing:hover {
+/* .track-listing:hover {
 	border-bottom: 1px solid grey;
-}
+} */
 
 .current-track {
 	font-weight: bold;

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
 	setTrackFromPlayList,
 	addToFavoritesList,
+	removeFromFavoritesList,
 } from '../actions/trackListActions';
 
 const PlayListRoster = () => {
@@ -18,9 +19,10 @@ const PlayListRoster = () => {
 		? JSON.parse(localStorage.getItem('favoritesPlayList'))
 		: [];
 
-	console.log(favorites);
-
 	const { image, name, summary } = land;
+
+	useEffect(() => {}, [dispatch]);
+
 	return (
 		<div className='playlist-roster'>
 			<div className='album-summary'>
@@ -49,7 +51,7 @@ const PlayListRoster = () => {
 							{favorites.some((t) => t.title === track.title) ? (
 								<i
 									className='fas fa-heart'
-									onClick={() => dispatch(addToFavoritesList(track))}
+									onClick={() => dispatch(removeFromFavoritesList(track))}
 								/>
 							) : (
 								<i

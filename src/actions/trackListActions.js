@@ -4,6 +4,7 @@ import {
 	PAUSE_TRACK,
 	SET_PLAYLIST,
 	ADD_TO_FAVORITES,
+	REMOVE_FROM_FAVORITES,
 } from '../constants/types.js';
 
 // import tracklist array
@@ -87,17 +88,37 @@ export const setCurrentTrackIndex = () => (dispatch, getState) => {
 };
 
 export const addToFavoritesList = (track) => (dispatch, getState) => {
-	dispatch({
-		type: ADD_TO_FAVORITES,
-		payload: {
-			title: track.title,
-			src: track.src,
-			land: track.land,
-		},
-	});
+	const state = getState();
 
+	let faveTracks = state.favoritesPlayList;
+	let alreadyFave = faveTracks.some((t) => t.title === track.title);
+
+	//only add tracks that are not already on the list
+	if (!alreadyFave) {
+		dispatch({
+			type: ADD_TO_FAVORITES,
+			payload: {
+				title: track.title,
+				src: track.src,
+				land: track.land,
+			},
+		});
+		localStorage.setItem(
+			'favoritesPlayList',
+			JSON.stringify(getState().favoritesPlayList),
+		);
+	} else {
+		return;
+	}
+};
+
+export const removeFromFavoritesList = (track) => (dispatch, getState) => {
+	dispatch({
+		type: REMOVE_FROM_FAVORITES,
+		payload: track.title,
+	});
 	localStorage.setItem(
 		'favoritesPlayList',
-		JSON.stringify(getState().favoritesPlayList.faveTracks),
+		JSON.stringify(getState().favoritesPlayList),
 	);
 };

@@ -3,6 +3,7 @@ import {
 	SET_PLAYLIST,
 	SET_TRACK,
 	ADD_TO_FAVORITES,
+	REMOVE_FROM_FAVORITES,
 } from '../constants/types.js';
 
 const initialState = {
@@ -35,7 +36,6 @@ const initialState = {
 		},
 	],
 	currentTrackIndex: 0,
-	faveTracks: [],
 };
 
 export const trackListReducer = (state = initialState, action) => {
@@ -61,15 +61,19 @@ export const trackListReducer = (state = initialState, action) => {
 	}
 };
 
-export const favoritesReducer = (state = initialState, action) => {
+export const favoritesReducer = (state = [], action) => {
 	switch (action.type) {
 		case ADD_TO_FAVORITES:
 			// let faveTrack = action.payload;
 			//include '|| []' otherwise cannot spread initially empty array
-			return {
-				//TODO: Check if track already exists, so it doesn't get added multiple times
-				faveTracks: [...(state.faveTracks || []), action.payload],
-			};
+			// return {
+			// faveTracks: [...(state.faveTracks || []), action.payload],
+			// };
+			return [...(state || []), action.payload];
+		case REMOVE_FROM_FAVORITES:
+			//return a new array where no track names match the payload
+			return state.filter((track) => track.title !== action.payload);
+
 		default:
 			return state;
 	}
