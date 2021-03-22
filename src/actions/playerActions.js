@@ -7,9 +7,10 @@ import {
 export const advanceTrack = (fwd = true) => (dispatch, getState) => {
 	const state = getState();
 
-	const { currentTrackIndex, tracks } = state.player;
+	const { currentTrackIndex, trackList } = state.tracks;
+
 	const nextIndex =
-		currentTrackIndex === tracks.length - 1 ? 0 : currentTrackIndex + 1;
+		currentTrackIndex === trackList.length - 1 ? 0 : currentTrackIndex + 1;
 
 	const prevIndex = currentTrackIndex === 0 ? 0 : currentTrackIndex - 1;
 

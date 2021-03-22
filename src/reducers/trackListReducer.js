@@ -67,6 +67,7 @@ export const favoritesReducer = (state = initialState, action) => {
 			// let faveTrack = action.payload;
 			//include '|| []' otherwise cannot spread initially empty array
 			return {
+				//TODO: Check if track already exists, so it doesn't get added multiple times
 				faveTracks: [...(state.faveTracks || []), action.payload],
 			};
 		default:

@@ -55,11 +55,13 @@ export const setTrackFromPlayList = (i) => (dispatch) => {
 export const setCurrentTrackIndex = () => (dispatch, getState) => {
 	const state = getState();
 
-	const { currentTrackIndex, tracks, isInfinite } = state.player;
+	const { isInfinite } = state.player;
+
+	const { currentTrackIndex, trackList } = state.tracks;
 
 	//check if current track is the last in the playlist
 	let lastTrack =
-		currentTrackIndex === tracks.length - 1 && currentTrackIndex !== 0;
+		currentTrackIndex === trackList.length - 1 && currentTrackIndex !== 0;
 
 	//if it's not the last track, move on to next index
 	if (!lastTrack) {
@@ -96,6 +98,6 @@ export const addToFavoritesList = (track) => (dispatch, getState) => {
 
 	localStorage.setItem(
 		'favoritesPlayList',
-		JSON.stringify(getState().favoritesPlayList),
+		JSON.stringify(getState().favoritesPlayList.faveTracks),
 	);
 };

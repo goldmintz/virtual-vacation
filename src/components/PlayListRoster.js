@@ -10,10 +10,15 @@ const PlayListRoster = () => {
 	const dispatch = useDispatch();
 	const land = useSelector((state) => state.tracks.land);
 	const trackList = useSelector((state) => state.tracks.trackList);
-	const favorites = useSelector((state) => state.favoritesPlayList);
 	const currentTrackIndex = useSelector(
 		(state) => state.tracks.currentTrackIndex,
 	);
+
+	const favorites = localStorage.getItem('favoritesPlayList')
+		? JSON.parse(localStorage.getItem('favoritesPlayList'))
+		: [];
+
+	console.log(favorites);
 
 	const { image, name, summary } = land;
 	return (
@@ -41,10 +46,17 @@ const PlayListRoster = () => {
 						}}>
 						<span style={{ marginRight: '.5rem' }}>{i + 1}</span> {track.title}
 						<span style={{ marginLeft: '.5rem' }}>
-							<i
-								className='fas fa-heart'
-								onClick={() => dispatch(addToFavoritesList(track))}
-							/>
+							{favorites.some((t) => t.title === track.title) ? (
+								<i
+									className='fas fa-heart'
+									onClick={() => dispatch(addToFavoritesList(track))}
+								/>
+							) : (
+								<i
+									className='far fa-heart'
+									onClick={() => dispatch(addToFavoritesList(track))}
+								/>
+							)}
 						</span>
 					</div>
 				))}
