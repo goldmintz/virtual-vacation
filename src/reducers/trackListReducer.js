@@ -73,6 +73,7 @@ export const favoritesReducer = (state = [], action) => {
 		case REMOVE_FROM_FAVORITES:
 			//return a new array where no track names match the payload
 			return state.filter((track) => track.title !== action.payload);
+			
 
 		default:
 			return state;

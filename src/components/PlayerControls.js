@@ -16,6 +16,7 @@ const PlayerControls = () => {
 	const isPlaying = useSelector((state) => state.player.isPlaying);
 	const currentTrack = useSelector((state) => state.player.currentTrackIndex);
 	const trackList = useSelector((state) => state.tracks.trackList);
+	const favoritesPlayList = useSelector((state) => state.favoritesPlayList);
 	const land = useSelector((state) => state.tracks.land);
 
 	return (
@@ -61,7 +62,11 @@ const PlayerControls = () => {
 
 				<button
 					className='controls-btn next-btn'
-					disabled={currentTrack === trackList.length - 1}
+					disabled={
+						land.name !== 'Favorites'
+							? currentTrack === trackList.length - 1
+							: favoritesPlayList.length - 1
+					}
 					onClick={() => {
 						dispatch(advanceTrack(true));
 					}}>

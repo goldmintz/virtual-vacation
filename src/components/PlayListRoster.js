@@ -11,10 +11,12 @@ const PlayListRoster = () => {
 	const dispatch = useDispatch();
 	const land = useSelector((state) => state.tracks.land);
 	const trackList = useSelector((state) => state.tracks.trackList);
+	const favoritesPlayList = useSelector((state) => state.favoritesPlayList);
 	const currentTrackIndex = useSelector(
 		(state) => state.tracks.currentTrackIndex,
 	);
 
+	const tracksToMap = land.name !== 'Favorites' ? trackList : favoritesPlayList;
 	const favorites = localStorage.getItem('favoritesPlayList')
 		? JSON.parse(localStorage.getItem('favoritesPlayList'))
 		: [];
@@ -36,7 +38,7 @@ const PlayListRoster = () => {
 			</div>
 
 			<div className='tracklist-wrapper'>
-				{trackList.map((track, i) => (
+				{tracksToMap.map((track, i) => (
 					<div
 						className={
 							'track-listing ' +
@@ -51,12 +53,18 @@ const PlayListRoster = () => {
 							{favorites.some((t) => t.title === track.title) ? (
 								<i
 									className='fas fa-heart'
-									onClick={() => dispatch(removeFromFavoritesList(track))}
+									onClick={(e) => {
+										e.stopPropagation(); //stop bubbling of setTrackFromPlaylist dispatch
+										dispatch(removeFromFavoritesList(track));
+									}}
 								/>
 							) : (
 								<i
 									className='far fa-heart'
-									onClick={() => dispatch(addToFavoritesList(track))}
+									onClick={(e) => {
+										e.stopPropagation(); //stop bubbling of setTrackFromPlaylist dispatch
+										dispatch(addToFavoritesList(track));
+									}}
 								/>
 							)}
 						</span>

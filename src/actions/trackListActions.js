@@ -23,6 +23,7 @@ export const setLands = () => (dispatch) => {
 export const setTrackList = (land) => (dispatch, getState) => {
 	const state = getState();
 	const { isShuffle } = state.player;
+	const faves = state.favoritesPlayList;
 
 	const trackList = isShuffle
 		? tracks
@@ -30,10 +31,19 @@ export const setTrackList = (land) => (dispatch, getState) => {
 				.sort(() => Math.random() - 0.5)
 		: tracks.filter((track) => track.land === land.name); //if shuffle is not selected, just find the land's tracks
 
-	dispatch({
-		type: SET_PLAYLIST,
-		payload: { land, trackList },
-	});
+	const favesList = isShuffle ? faves.sort(() => Math.random() - 0.5) : faves;
+
+	if (land.name !== 'Favorites') {
+		dispatch({
+			type: SET_PLAYLIST,
+			payload: { land, trackList },
+		});
+	} else {
+		dispatch({
+			type: SET_PLAYLIST,
+			payload: { land, favesList },
+		});
+	}
 };
 
 //Restart playlist from first track
@@ -112,7 +122,10 @@ export const addToFavoritesList = (track) => (dispatch, getState) => {
 	}
 };
 
-export const removeFromFavoritesList = (track) => (dispatch, getState) => {
+export const removeFromFavoritesList = (track) => (
+	dispatch,
+	getState,
+) => {
 	dispatch({
 		type: REMOVE_FROM_FAVORITES,
 		payload: track.title,

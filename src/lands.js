@@ -17,4 +17,9 @@ export const lands = [
 		summary:
 			'NOLA land summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas orci neque, viverra id blandit at, elementum ac lacus. Nam blandit ultrices turpis ut maximus.',
 	},
+	{
+		name: 'Favorites',
+		image: './images/favorites.jpg',
+		summary: 'Use selected favorites',
+	},
 ];
