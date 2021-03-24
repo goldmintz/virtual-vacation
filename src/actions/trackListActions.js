@@ -69,27 +69,39 @@ export const setCurrentTrackIndex = () => (dispatch, getState) => {
 	const { isInfinite } = state.player;
 
 	const { currentTrackIndex, trackList } = state.tracks;
+	const faves = state.favoritesPlayList;
 
 	//check if current track is the last in the playlist
 	let lastTrack =
-		currentTrackIndex === trackList.length - 1 && currentTrackIndex !== 0;
+		trackList !== undefined &&
+		currentTrackIndex === trackList.length - 1 &&
+		currentTrackIndex !== 0;
+
+	let lastFave =
+		currentTrackIndex === faves.length - 1 && currentTrackIndex !== 0;
+
 
 	//if it's not the last track, move on to next index
-	if (!lastTrack) {
+	if (!lastTrack || !lastFave) {
 		dispatch({
 			type: SET_TRACK,
 			payload: currentTrackIndex + 1,
 		});
 	}
-	//if it is the last track and playthru is normal, end on last song
-	if (lastTrack && !isInfinite) {
+	//if it is the last track and playthru is normal, end playthru on last song
+	if ((lastTrack || lastFave) && !isInfinite) {
+		//reset currentTrackIndex to same value
 		dispatch({
-			// return setIsPlaying(!isPlaying);
+			type: SET_TRACK,
+			payload: currentTrackIndex,
+		});
+		//pause track to end playlist
+		dispatch({
 			type: PAUSE_TRACK,
 		});
 	}
 	//if it is the last track, but playthru is set to infinite, start over again
-	if (lastTrack && isInfinite) {
+	if ((lastTrack || lastFave) && isInfinite) {
 		dispatch({
 			type: SET_TRACK,
 			payload: 0,
@@ -122,10 +134,7 @@ export const addToFavoritesList = (track) => (dispatch, getState) => {
 	}
 };
 
-export const removeFromFavoritesList = (track) => (
-	dispatch,
-	getState,
-) => {
+export const removeFromFavoritesList = (track) => (dispatch, getState) => {
 	dispatch({
 		type: REMOVE_FROM_FAVORITES,
 		payload: track.title,
