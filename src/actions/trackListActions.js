@@ -43,6 +43,11 @@ export const setTrackList = (land) => (dispatch, getState) => {
 			type: SET_PLAYLIST,
 			payload: { land, favesList },
 		});
+
+		localStorage.setItem(
+			'favoritesPlayList',
+			JSON.stringify(getState().favoritesPlayList),
+		);
 	}
 };
 
@@ -67,7 +72,6 @@ export const setCurrentTrackIndex = () => (dispatch, getState) => {
 	const state = getState();
 
 	const { isInfinite } = state.player;
-
 	const { currentTrackIndex, trackList } = state.tracks;
 	const faves = state.favoritesPlayList;
 
@@ -77,9 +81,7 @@ export const setCurrentTrackIndex = () => (dispatch, getState) => {
 		currentTrackIndex === trackList.length - 1 &&
 		currentTrackIndex !== 0;
 
-	let lastFave =
-		currentTrackIndex === faves.length - 1 && currentTrackIndex !== 0;
-
+	let lastFave = faves !== undefined && currentTrackIndex === faves.length - 1;
 
 	//if it's not the last track, move on to next index
 	if (!lastTrack || !lastFave) {

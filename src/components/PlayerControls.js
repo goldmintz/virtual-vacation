@@ -14,10 +14,14 @@ const PlayerControls = () => {
 
 	//Access global state
 	const isPlaying = useSelector((state) => state.player.isPlaying);
-	const currentTrack = useSelector((state) => state.player.currentTrackIndex);
+	const currentTrackIndex = useSelector(
+		(state) => state.tracks.currentTrackIndex,
+	);
 	const trackList = useSelector((state) => state.tracks.trackList);
 	const favoritesPlayList = useSelector((state) => state.favoritesPlayList);
 	const land = useSelector((state) => state.tracks.land);
+
+	const tracks = land.name !== 'Favorites' ? trackList : favoritesPlayList;
 
 	return (
 		<div className='player-controls'>
@@ -40,7 +44,7 @@ const PlayerControls = () => {
 			<div className='main-controls'>
 				<button
 					className='controls-btn back-btn'
-					disabled={currentTrack === 0}
+					disabled={currentTrackIndex === 0}
 					onClick={() => {
 						dispatch(advanceTrack(false));
 					}}>
@@ -62,17 +66,14 @@ const PlayerControls = () => {
 
 				<button
 					className='controls-btn next-btn'
-					disabled={
-						land.name !== 'Favorites'
-							? currentTrack === trackList.length - 1
-							: favoritesPlayList.length - 1
-					}
+					disabled={currentTrackIndex === tracks.length - 1}
 					onClick={() => {
 						dispatch(advanceTrack(true));
 					}}>
 					<i className='fas fa-forward' />
 				</button>
 			</div>
+
 			<div className='secondary-controls'>
 				<button className='controls-btn volume-btn'>
 					<i className='fas fa-volume-up'></i>

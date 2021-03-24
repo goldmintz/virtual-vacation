@@ -11,7 +11,7 @@ const initialState = {
 	isPlaying: false,
 	isInfinite: false, //Set whether playlist ends on last song (normal) or loops (infinite)
 	isShuffle: false, //Set track order to be random instead of increment +1
-	currentTrackIndex: 0,
+	// currentTrackIndex: 0,
 	trackDuration: null,
 	currentTime: null,
 };

@@ -8,9 +8,13 @@ export const advanceTrack = (fwd = true) => (dispatch, getState) => {
 	const state = getState();
 
 	const { currentTrackIndex, trackList } = state.tracks;
+	const { name } = state.tracks.land;
+	const faves = state.favoritesPlayList;
+
+	const tracks = name !== 'Favorites' ? trackList : faves;
 
 	const nextIndex =
-		currentTrackIndex === trackList.length - 1 ? 0 : currentTrackIndex + 1;
+		currentTrackIndex === tracks.length - 1 ? 0 : currentTrackIndex + 1;
 
 	const prevIndex = currentTrackIndex === 0 ? 0 : currentTrackIndex - 1;
 
