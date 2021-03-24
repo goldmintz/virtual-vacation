@@ -85,16 +85,16 @@ export const setNextTrackIndex = () => (dispatch, getState) => {
 			type: SET_TRACK,
 			payload: currentTrackIndex + 1,
 		});
-	//if it's the last track and not infinite playthru, stop at end of playlist
-	} else if (lastTrack && !isInfinite) {
-		dispatch({
-			type: PAUSE_TRACK,
-		});
-	//if it's the last track and set to infinite playthru, start the list over
+		//if it's the last track and set to infinite playthru, start the list over
 	} else if (lastTrack && isInfinite) {
 		dispatch({
 			type: SET_TRACK,
 			payload: 0,
+		});
+	} //if it's the last track and not infinite playthru, stop at end of playlist
+	else if (lastTrack && !isInfinite) {
+		dispatch({
+			type: PAUSE_TRACK,
 		});
 	}
 };
