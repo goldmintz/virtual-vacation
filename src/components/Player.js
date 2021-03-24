@@ -19,6 +19,7 @@ const Player = () => {
 	const trackList = useSelector((state) => state.tracks.trackList);
 	const isPlaying = useSelector((state) => state.player.isPlaying);
 	const favoritesPlayList = useSelector((state) => state.favoritesPlayList);
+	const audioVolume = useSelector((state) => state.player.volume);
 
 	const tracks = land.name !== 'Favorites' ? trackList : favoritesPlayList;
 
@@ -31,10 +32,16 @@ const Player = () => {
 
 	const audioEl = useRef(null);
 
+	if (audioEl !== undefined) {
+		console.log(audioVolume);
+	}
+
 	useEffect(() => {
 		//check that audio should/shouldn't be playing
 		isPlaying ? audioEl.current.play() : audioEl.current.pause();
 	}, [isPlaying, audioEl, currentTrackIndex, dispatch]);
+
+	// console.log(audioEl.current.volume);
 
 	// Begin Component Render
 	return (
@@ -44,6 +51,7 @@ const Player = () => {
 					<audio
 						src={tracks[currentTrackIndex].src}
 						ref={audioEl}
+						volume={audioVolume}
 						onLoadedMetadata={() =>
 							dispatch(setCurrentTrackDuration(audioEl.current.duration))
 						}

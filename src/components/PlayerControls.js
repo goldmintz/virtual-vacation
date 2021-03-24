@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	INFINITE_PLAY,
@@ -6,11 +6,14 @@ import {
 	PLAY_TRACK,
 	PAUSE_TRACK,
 } from '../constants/types';
-import { advanceTrack } from '../actions/playerActions';
+import { advanceTrack, setVolume } from '../actions/playerActions';
 import { setTrackList } from '../actions/trackListActions';
 
 const PlayerControls = () => {
 	const dispatch = useDispatch();
+
+	//Local state to toggle volume input visibility
+	const [volumeVisible, setVolumeVisible] = useState(false);
 
 	//Access global state
 	const isPlaying = useSelector((state) => state.player.isPlaying);
@@ -20,9 +23,11 @@ const PlayerControls = () => {
 	const trackList = useSelector((state) => state.tracks.trackList);
 	const favoritesPlayList = useSelector((state) => state.favoritesPlayList);
 	const land = useSelector((state) => state.tracks.land);
+	const audioVolume = useSelector((state) => state.player.volume);
 
 	const tracks = land.name !== 'Favorites' ? trackList : favoritesPlayList;
 
+	//Begin Render
 	return (
 		<div className='player-controls'>
 			<div className='secondary-controls'>
@@ -75,9 +80,26 @@ const PlayerControls = () => {
 			</div>
 
 			<div className='secondary-controls'>
-				<button className='controls-btn volume-btn'>
+				<button
+					className='controls-btn volume-btn'
+					onClick={() => {
+						setVolumeVisible(!volumeVisible);
+					}}>
 					<i className='fas fa-volume-up'></i>
 				</button>
+				{volumeVisible && (
+					<input
+						type='range'
+						min={0}
+						max={1}
+						step={0.02}
+						defaultValue={audioVolume}
+						onChange={(e) => {
+							dispatch(setVolume(e.target.valueAsNumber));
+						}}
+					/>
+				)}
+
 				<button className='controls-btn volume-btn'>
 					<i className='fas fa-list'></i>
 				</button>

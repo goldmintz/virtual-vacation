@@ -2,6 +2,7 @@ import {
 	SET_TRACK,
 	SET_TRACK_DURATION,
 	SET_TRACK_CURRENT_TIME,
+	SET_VOLUME,
 } from '../constants/types.js';
 
 export const advanceTrack = (fwd = true) => (dispatch, getState) => {
@@ -46,5 +47,12 @@ export const setTrackCurrentTime = (currentTime) => (dispatch) => {
 	dispatch({
 		type: SET_TRACK_CURRENT_TIME,
 		payload: currentTime,
+	});
+};
+
+export const setVolume = (volume) => (dispatch) => {
+	dispatch({
+		type: SET_VOLUME,
+		payload: volume,
 	});
 };

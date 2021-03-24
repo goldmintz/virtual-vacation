@@ -14,3 +14,4 @@ export const PLAY_TRACK = 'PLAY_TRACK';
 export const PAUSE_TRACK = 'PAUSE_TRACK';
 export const INFINITE_PLAY = 'INFINITE_PLAY';
 export const SHUFFLE_PLAY = 'SHUFFLE_PLAY';
+export const SET_VOLUME = 'SET_VOLUME';
