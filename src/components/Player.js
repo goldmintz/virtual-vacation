@@ -5,7 +5,7 @@ import {
 	setTrackCurrentTime,
 } from '../actions/playerActions';
 
-import { setCurrentTrackIndex } from '../actions/trackListActions';
+import { setNextTrackIndex } from '../actions/trackListActions';
 
 import PlayerControls from './PlayerControls';
 import ProgressBar from './ProgressBar';
@@ -32,16 +32,10 @@ const Player = () => {
 
 	const audioEl = useRef(null);
 
-	if (audioEl !== undefined) {
-		console.log(audioVolume);
-	}
-
 	useEffect(() => {
 		//check that audio should/shouldn't be playing
 		isPlaying ? audioEl.current.play() : audioEl.current.pause();
 	}, [isPlaying, audioEl, currentTrackIndex, dispatch]);
-
-	// console.log(audioEl.current.volume);
 
 	// Begin Component Render
 	return (
@@ -59,7 +53,7 @@ const Player = () => {
 							// on update, retrieve currentTime from ref and set time in globalstate
 							dispatch(setTrackCurrentTime(audioEl.current.currentTime))
 						}
-						onEnded={() => dispatch(setCurrentTrackIndex())}
+						onEnded={() => dispatch(setNextTrackIndex())}
 					/>
 					<section className='player'>
 						<img className='albumArt' src={image} alt={name} />
