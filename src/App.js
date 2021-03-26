@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLands } from './actions/trackListActions';
+import { setLands, setRandomLand } from './actions/trackListActions';
 import './App.css';
 
 // import children
@@ -12,9 +12,10 @@ const App = () => {
 	const lands = useSelector((state) => state.tracks.lands);
 
 	useEffect(() => {
-		// dispatch(loadLocalFavorites());
 		//set lands on load
 		dispatch(setLands());
+		//set playlist to random
+		dispatch(setRandomLand());
 	}, [dispatch]);
 
 	return (

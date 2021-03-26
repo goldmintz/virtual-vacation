@@ -19,7 +19,30 @@ export const setLands = () => (dispatch) => {
 	});
 };
 
-//Get tracks based on land selected
+//Set random land when app initially mounts
+export const setRandomLand = () => (dispatch) => {
+	//create an array of lands that does not include the favorites playlist and pull a random land
+	let land =
+		lands[
+			Math.floor(
+				Math.random() *
+					lands.filter((land) => land.name !== 'Favorites').length,
+			)
+		];
+
+	let trackList = tracks.filter((track) => track.land === land.name);
+
+	//set land to random
+	dispatch({
+		type: SET_PLAYLIST,
+		payload: {
+			land,
+			trackList,
+		},
+	});
+};
+
+//Set tracks based on land selected
 export const setTrackList = (land) => (dispatch, getState) => {
 	const state = getState();
 	const { isShuffle } = state.player;

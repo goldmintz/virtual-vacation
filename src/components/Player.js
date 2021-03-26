@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import {
 	setCurrentTrackDuration,
 	setTrackCurrentTime,
 } from '../actions/playerActions';
-
 import { setNextTrackIndex } from '../actions/trackListActions';
 
 import PlayerControls from './PlayerControls';
@@ -33,8 +33,16 @@ const Player = () => {
 	const audioEl = useRef(null);
 
 	useEffect(() => {
-		//check that audio should/shouldn't be playing
-		isPlaying ? audioEl.current.play() : audioEl.current.pause();
+		//check that audio is not null and should/shouldn't be playing
+
+		if (audioEl.current !== null && isPlaying) {
+			audioEl.current.play();
+		} else if (audioEl.current !== null && !isPlaying) {
+			audioEl.current.pause();
+		}
+		// isPlaying && audioEl.current !== null
+		// 	? audioEl.current.play()
+		// 	: audioEl.current.pause();
 	}, [isPlaying, audioEl, currentTrackIndex, dispatch]);
 
 	// Begin Component Render
