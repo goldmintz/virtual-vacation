@@ -9,7 +9,7 @@ import {
 import { advanceTrack, setVolume } from '../actions/playerActions';
 import { setTrackList } from '../actions/trackListActions';
 
-const PlayerControls = () => {
+const PlayerControls = ({ audioEl }) => {
 	const dispatch = useDispatch();
 
 	//Local state to toggle volume input visibility
@@ -92,10 +92,13 @@ const PlayerControls = () => {
 						type='range'
 						min={0}
 						max={1}
-						step={0.02}
+						step={0.1}
 						defaultValue={audioVolume}
 						onChange={(e) => {
 							dispatch(setVolume(e.target.valueAsNumber));
+							console.log(
+								`state: ${audioVolume}, element: ${audioEl.current.volume}`,
+							);
 						}}
 					/>
 				)}

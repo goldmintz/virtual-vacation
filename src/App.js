@@ -12,10 +12,8 @@ const App = () => {
 	const lands = useSelector((state) => state.tracks.lands);
 
 	useEffect(() => {
-		//set lands on load
-		dispatch(setLands());
-		//set playlist to random
-		dispatch(setRandomLand());
+		dispatch(setLands()); //set lands on load
+		dispatch(setRandomLand()); // then set playlist to random
 	}, [dispatch]);
 
 	return (

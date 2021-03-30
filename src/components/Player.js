@@ -40,9 +40,6 @@ const Player = () => {
 		} else if (audioEl.current !== null && !isPlaying) {
 			audioEl.current.pause();
 		}
-		// isPlaying && audioEl.current !== null
-		// 	? audioEl.current.play()
-		// 	: audioEl.current.pause();
 	}, [isPlaying, audioEl, currentTrackIndex, dispatch]);
 
 	// Begin Component Render
@@ -62,6 +59,7 @@ const Player = () => {
 							dispatch(setTrackCurrentTime(audioEl.current.currentTime))
 						}
 						onEnded={() => dispatch(setNextTrackIndex())}
+						onVolumeChange={() => console.log('audio changed')}
 					/>
 					<section className='player'>
 						<img className='albumArt' src={image} alt={name} />
@@ -72,7 +70,7 @@ const Player = () => {
 								<div id='track-land'>{tracks[currentTrackIndex].land}</div>
 							</div>
 							<ProgressBar />
-							<PlayerControls />
+							<PlayerControls audioEl={audioEl} />
 						</section>
 					</section>
 				</>
