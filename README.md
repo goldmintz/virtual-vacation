@@ -1,12 +1,12 @@
-# Welcome to Virtual Vacation
+# 🎢  Welcome to Virtual Vacation 🎡
 
-During the Covid shutdown, I was missing the disney parks. I built this little music player to listen to my favorite ambient loops while I coded.
+During the Covid shutdown, I was missing the Disney parks. I built this little music player to listen to my favorite ambient loops while I coded.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## How It's Made
 
-Tech Stack
+### Tech Stack
 - React and Redux
 - Local Storage
 - CSS/SaSS styling
@@ -14,7 +14,7 @@ Tech Stack
 - Audio files are locally hosted.
 
 
-Features
+### Features
 - Standard audio using HTML5 <audio>
 - Shuffle and infinite play
 - Navigate across 'lands'
