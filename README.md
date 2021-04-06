@@ -1,6 +1,6 @@
 # 🎢  Welcome to Virtual Vacation 🎡
 
-During the Covid shutdown, I was missing the Disney parks. I built this little music player to listen to my favorite ambient loops while I coded.
+During the Covid shutdown, I was missing the Disney parks, so I built this little music player to listen to my favorite ambient loops while I worked.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
