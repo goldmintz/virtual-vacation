@@ -5,6 +5,7 @@ import {
 	PAUSE_TRACK,
 	SET_TRACK_DURATION,
 	SET_TRACK_CURRENT_TIME,
+	SET_VOLUME,
 } from '../constants/types.js';
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
 	// currentTrackIndex: 0,
 	trackDuration: null,
 	currentTime: null,
+	volume: 0.8,
 };
 
 export const playerReducer = (state = initialState, action) => {
@@ -48,7 +50,11 @@ export const playerReducer = (state = initialState, action) => {
 				...state,
 				isShuffle: !state.isShuffle,
 			};
-
+		case SET_VOLUME:
+			return {
+				...state,
+				volume: action.payload,
+			};
 		default:
 			return state;
 	}

@@ -19,7 +19,30 @@ export const setLands = () => (dispatch) => {
 	});
 };
 
-//Get tracks based on land selected
+//Set random land when app initially mounts
+export const setRandomLand = () => (dispatch) => {
+	//create an array of lands that does not include the favorites playlist and pull a random land
+	let land =
+		lands[
+			Math.floor(
+				Math.random() *
+					lands.filter((land) => land.name !== 'Favorites').length,
+			)
+		];
+
+	let trackList = tracks.filter((track) => track.land === land.name);
+
+	//set land to random
+	dispatch({
+		type: SET_PLAYLIST,
+		payload: {
+			land,
+			trackList,
+		},
+	});
+};
+
+//Set tracks based on land selected
 export const setTrackList = (land) => (dispatch, getState) => {
 	const state = getState();
 	const { isShuffle } = state.player;
@@ -68,45 +91,33 @@ export const setTrackFromPlayList = (i) => (dispatch) => {
 	});
 };
 
-export const setCurrentTrackIndex = () => (dispatch, getState) => {
+export const setNextTrackIndex = () => (dispatch, getState) => {
 	const state = getState();
-
-	const { isInfinite } = state.player;
-	const { currentTrackIndex, trackList } = state.tracks;
+	const { trackList, currentTrackIndex, land } = state.tracks;
 	const faves = state.favoritesPlayList;
+	const { isInfinite } = state.player;
 
-	//check if current track is the last in the playlist
-	let lastTrack =
-		trackList !== undefined &&
-		currentTrackIndex === trackList.length - 1 &&
-		currentTrackIndex !== 0;
+	const tracks = land.name !== 'Favorites' ? trackList : faves;
 
-	let lastFave = faves !== undefined && currentTrackIndex === faves.length - 1;
+	// is the current track playing the last track on the playlist?
+	let lastTrack = currentTrackIndex === tracks.length - 1;
 
-	//if it's not the last track, move on to next index
-	if (!lastTrack || !lastFave) {
+	// if it's not the last track, move to next track
+	if (!lastTrack) {
 		dispatch({
 			type: SET_TRACK,
 			payload: currentTrackIndex + 1,
 		});
-	}
-	//if it is the last track and playthru is normal, end playthru on last song
-	if ((lastTrack || lastFave) && !isInfinite) {
-		//reset currentTrackIndex to same value
-		dispatch({
-			type: SET_TRACK,
-			payload: currentTrackIndex,
-		});
-		//pause track to end playlist
-		dispatch({
-			type: PAUSE_TRACK,
-		});
-	}
-	//if it is the last track, but playthru is set to infinite, start over again
-	if ((lastTrack || lastFave) && isInfinite) {
+		//if it's the last track and set to infinite playthru, start the list over
+	} else if (lastTrack && isInfinite) {
 		dispatch({
 			type: SET_TRACK,
 			payload: 0,
+		});
+	} //if it's the last track and not infinite playthru, stop at end of playlist
+	else if (lastTrack && !isInfinite) {
+		dispatch({
+			type: PAUSE_TRACK,
 		});
 	}
 };

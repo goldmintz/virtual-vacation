@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import {
 	setCurrentTrackDuration,
 	setTrackCurrentTime,
 } from '../actions/playerActions';
-
-import { setCurrentTrackIndex } from '../actions/trackListActions';
+import { setNextTrackIndex } from '../actions/trackListActions';
 
 import PlayerControls from './PlayerControls';
 import ProgressBar from './ProgressBar';
@@ -19,6 +19,7 @@ const Player = () => {
 	const trackList = useSelector((state) => state.tracks.trackList);
 	const isPlaying = useSelector((state) => state.player.isPlaying);
 	const favoritesPlayList = useSelector((state) => state.favoritesPlayList);
+	const audioVolume = useSelector((state) => state.player.volume);
 
 	const tracks = land.name !== 'Favorites' ? trackList : favoritesPlayList;
 
@@ -32,8 +33,13 @@ const Player = () => {
 	const audioEl = useRef(null);
 
 	useEffect(() => {
-		//check that audio should/shouldn't be playing
-		isPlaying ? audioEl.current.play() : audioEl.current.pause();
+		//check that audio is not null and should/shouldn't be playing
+
+		if (audioEl.current !== null && isPlaying) {
+			audioEl.current.play();
+		} else if (audioEl.current !== null && !isPlaying) {
+			audioEl.current.pause();
+		}
 	}, [isPlaying, audioEl, currentTrackIndex, dispatch]);
 
 	// Begin Component Render
@@ -44,6 +50,7 @@ const Player = () => {
 					<audio
 						src={tracks[currentTrackIndex].src}
 						ref={audioEl}
+						volume={audioVolume}
 						onLoadedMetadata={() =>
 							dispatch(setCurrentTrackDuration(audioEl.current.duration))
 						}
@@ -51,7 +58,8 @@ const Player = () => {
 							// on update, retrieve currentTime from ref and set time in globalstate
 							dispatch(setTrackCurrentTime(audioEl.current.currentTime))
 						}
-						onEnded={() => dispatch(setCurrentTrackIndex())}
+						onEnded={() => dispatch(setNextTrackIndex())}
+						onVolumeChange={() => console.log('audio changed')}
 					/>
 					<section className='player'>
 						<img className='albumArt' src={image} alt={name} />
@@ -62,7 +70,7 @@ const Player = () => {
 								<div id='track-land'>{tracks[currentTrackIndex].land}</div>
 							</div>
 							<ProgressBar />
-							<PlayerControls />
+							<PlayerControls audioEl={audioEl} />
 						</section>
 					</section>
 				</>

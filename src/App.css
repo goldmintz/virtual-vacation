@@ -130,6 +130,9 @@ img {
 	cursor: pointer;
 }
 
+/* input[type='range'] {
+	-webkit-appearance: slider-vertical;
+} */
 /* .main-controls {
 	margin: 0px 20px;
 } */
