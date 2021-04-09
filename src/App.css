@@ -13,6 +13,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-size: 16px;
+	background-color: pink;
 }
 ::-webkit-scrollbar {
 	height: 0; /* Remove scrollbar space */
@@ -27,32 +28,37 @@ img {
 .app-wrapper {
 	display: flex;
 	flex-direction: column;
-	padding: 1rem;
-	height: 100vh;
+	margin: 3em;
+	border-radius: 1%;
+	padding: 3em;
+	height: calc(100vh - 6em);
+	width: calc(100vw - 6em);
 	align-items: center;
 	justify-content: center;
+	background-color: whitesmoke;
 }
 
 /* Top Row - Player */
 .player-wrapper {
 	display: flex;
+	flex-direction: row;
 	margin-bottom: 1rem;
 	flex: 1 1 auto;
 }
 
 .player {
 	display: flex;
-	flex: 2;
+	/* flex: 2; */
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	padding: 1rem 2rem;
-	font-size: 1rem;
+	padding: 1em 2em;
+	font-size: 1em;
 }
 
 .player .albumArt {
-	max-height: 25rem;
+	max-height: 25em;
 	width: 90%;
 	object-fit: contain;
 	object-position: 50% 50%;

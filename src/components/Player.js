@@ -9,7 +9,6 @@ import { setNextTrackIndex } from '../actions/trackListActions';
 
 import PlayerControls from './PlayerControls';
 import ProgressBar from './ProgressBar';
-import PlayListRoster from './PlayListRoster';
 
 const Player = () => {
 	const dispatch = useDispatch();
@@ -79,10 +78,6 @@ const Player = () => {
 					<img className='albumArt' src={image} alt={name} />
 				</section>
 			)}
-
-			<PlayListRoster
-				audioEl={audioEl} //Have to pass audioEl as props because it can't get sent as an object to the store
-			/>
 		</>
 	);
 };

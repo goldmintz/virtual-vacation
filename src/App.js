@@ -6,6 +6,7 @@ import './App.css';
 // import children
 import PlaylistCard from './components/PlaylistCard';
 import Player from './components/Player';
+import PlayListRoster from './components/PlayListRoster';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const App = () => {
 
 	return (
 		<div className='app-wrapper'>
+			<PlayListRoster />
 			<section className='player-wrapper'>
 				<Player />
 			</section>
